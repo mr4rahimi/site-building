@@ -68,7 +68,12 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    sites: Site;
     media: Media;
+    pages: Page;
+    services: Service;
+    posts: Post;
+    categories: Category;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -77,14 +82,19 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    sites: SitesSelect<false> | SitesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {};
@@ -119,7 +129,9 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
+  role: 'superadmin' | 'siteadmin' | 'editor';
+  sites?: (number | Site)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -141,11 +153,29 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sites".
+ */
+export interface Site {
+  id: number;
+  name: string;
+  primaryDomain: string;
+  isActive?: boolean | null;
+  logo?: (number | null) | Media;
+  brandPrimary?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
+  site: number | Site;
   alt: string;
+  mediaKind: 'upload' | 'aparat';
+  aparatUrl?: string | null;
+  aparatIframe?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -160,10 +190,1163 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  site: number | Site;
+  title: string;
+  pageType: 'home' | 'about' | 'contact';
+  sections?:
+    | (
+        | {
+            headline: string;
+            subheadline?: string | null;
+            image?: (number | null) | Media;
+            primaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            eyebrow?: string | null;
+            title: string;
+            description?: string | null;
+            primaryButton?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            secondaryButton?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            badges?:
+              | {
+                  title: string;
+                  desc?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            quickContact?: {
+              title?: string | null;
+              phone?: string | null;
+              phoneDisplay?: string | null;
+              whatsapp?: string | null;
+              addressLinkLabel?: string | null;
+              addressLinkHref?: string | null;
+              hint?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroPro';
+          }
+        | {
+            poster: number | Media;
+            /**
+             * فایل mp4 آپلودی (در Astro به <video> تبدیل می‌شود).
+             */
+            video: number | Media;
+            alt?: string | null;
+            preload?: ('none' | 'metadata' | 'auto') | null;
+            aspect?: string | null;
+            muted?: boolean | null;
+            playsInline?: boolean | null;
+            loop?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoHero';
+          }
+        | {
+            title?: string | null;
+            moreLink?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            items: {
+              title: string;
+              desc: string;
+              button?: {
+                label?: string | null;
+                href?: string | null;
+              };
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesCards1';
+          }
+        | {
+            title?: string | null;
+            moreLink?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            items: {
+              title: string;
+              desc: string;
+              href: string;
+              ctaLabel?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesCards2';
+          }
+        | {
+            title?: string | null;
+            items: {
+              title: string;
+              desc: string;
+              icon?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'features2';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            items: {
+              title: string;
+              desc: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'whyUs1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            items: {
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'issues';
+          }
+        | {
+            title?: string | null;
+            steps: {
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'repairSteps1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            hint?: string | null;
+            items: {
+              name: string;
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'reviews1';
+          }
+        | {
+            variant?: string | null;
+            /**
+             * تصویر پس‌زمینه (SEO-friendly)
+             */
+            backgroundImage: number | Media;
+            badgeText?: string | null;
+            title: string;
+            description?: string | null;
+            bullets: {
+              text: string;
+              id?: string | null;
+            }[];
+            sideCard: {
+              kicker?: string | null;
+              headline?: string | null;
+              items?:
+                | {
+                    title: string;
+                    desc?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              phoneCta: {
+                label?: string | null;
+                tel: string;
+              };
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'repairSpecial1';
+          }
+        | {
+            variant?: string | null;
+            title: string;
+            /**
+             * تصویر بزرگ اصلی
+             */
+            heroImage: number | Media;
+            /**
+             * تصویر کناری/استیکی
+             */
+            sideImage: number | Media;
+            /**
+             * زیرنویس تصویر اصلی
+             */
+            caption?: string | null;
+            intro?: {
+              headline?: string | null;
+              p1?: string | null;
+              p2?: string | null;
+            };
+            serviceListTitle?: string | null;
+            serviceList?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * بخش‌های متن طولانی (کارت‌های توضیحی)
+             */
+            contentBlocks?:
+              | {
+                  title: string;
+                  body: string;
+                  id?: string | null;
+                }[]
+              | null;
+            processStepsTitle?: string | null;
+            processSteps?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'repairSpecial2';
+          }
+        | {
+            title?: string | null;
+            pickup?: {
+              title?: string | null;
+              description?: string | null;
+            };
+            branches?: {
+              title?: string | null;
+              items?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            image?: (number | null) | Media;
+            areasServed?:
+              | {
+                  area: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'coverage';
+          }
+        | {
+            title?: string | null;
+            items: {
+              title: string;
+              address: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'branches1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            primaryButton: {
+              label?: string | null;
+              tel: string;
+            };
+            secondaryButton: {
+              label?: string | null;
+              href: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            phone: {
+              tel: string;
+              display?: string | null;
+            };
+            buttonLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact2';
+          }
+        | {
+            variant?: string | null;
+            badgeText?: string | null;
+            title: string;
+            description?: string | null;
+            primaryButton: {
+              label?: string | null;
+              tel: string;
+              phoneDisplay?: string | null;
+            };
+            sideCard?: {
+              brand?: string | null;
+              headline?: string | null;
+              items?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact3';
+          }
+        | {
+            title?: string | null;
+            items?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            variant?: string | null;
+            title?: string | null;
+            intro?: string | null;
+            items: {
+              q: string;
+              a: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq2';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            buttons?:
+              | {
+                  label: string;
+                  href: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            kicker?: string | null;
+            title: string;
+            description?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            heroImage: number | Media;
+            primaryButton: {
+              label?: string | null;
+              href: string;
+            };
+            secondaryButton: {
+              label?: string | null;
+              href: string;
+            };
+            pills?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'landingHeroImage';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            description?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            branchesTitle?: string | null;
+            branches?:
+              | {
+                  title: string;
+                  address: string;
+                  id?: string | null;
+                }[]
+              | null;
+            image?: (number | null) | Media;
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'coverageWithBranches';
+          }
+        | {
+            sectionId?: string | null;
+            image: number | Media;
+            imageCaption?: string | null;
+            title: string;
+            features: {
+              title: string;
+              desc?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageWithFeatureList';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            intro?: string | null;
+            items: {
+              title: string;
+              desc?: string | null;
+              iconImage?: (number | null) | Media;
+              href: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesGridWithAnchors';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            steps: {
+              title: string;
+              desc?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stepsTimeline';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            desc?: string | null;
+            button: {
+              label: string;
+              href: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'simpleCTA';
+          }
+        | {
+            sectionId: string;
+            title: string;
+            content?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            image?: (number | null) | Media;
+            pills?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            layout?: ('imageRight' | 'imageLeft') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'serviceDetailSection';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            items: {
+              question: string;
+              answer: string;
+              bullets?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'issuesAccordion';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            intro?: string | null;
+            rows: {
+              service: string;
+              priceRange: string;
+              eta?: string | null;
+              note?: string | null;
+              id?: string | null;
+            }[];
+            footnote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricingTable';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            items: {
+              q: string;
+              a: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faqAccordion';
+          }
+      )[]
+    | null;
+  aboutContent?: string | null;
+  contact?: {
+    phone?: string | null;
+    address?: string | null;
+    mapEmbed?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  site: number | Site;
+  title: string;
+  slug: string;
+  sections?:
+    | (
+        | {
+            headline: string;
+            subheadline?: string | null;
+            image?: (number | null) | Media;
+            primaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            eyebrow?: string | null;
+            title: string;
+            description?: string | null;
+            primaryButton?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            secondaryButton?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            badges?:
+              | {
+                  title: string;
+                  desc?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            quickContact?: {
+              title?: string | null;
+              phone?: string | null;
+              phoneDisplay?: string | null;
+              whatsapp?: string | null;
+              addressLinkLabel?: string | null;
+              addressLinkHref?: string | null;
+              hint?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'heroPro';
+          }
+        | {
+            poster: number | Media;
+            /**
+             * فایل mp4 آپلودی (در Astro به <video> تبدیل می‌شود).
+             */
+            video: number | Media;
+            alt?: string | null;
+            preload?: ('none' | 'metadata' | 'auto') | null;
+            aspect?: string | null;
+            muted?: boolean | null;
+            playsInline?: boolean | null;
+            loop?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoHero';
+          }
+        | {
+            title?: string | null;
+            moreLink?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            items: {
+              title: string;
+              desc: string;
+              button?: {
+                label?: string | null;
+                href?: string | null;
+              };
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesCards1';
+          }
+        | {
+            title?: string | null;
+            moreLink?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            items: {
+              title: string;
+              desc: string;
+              href: string;
+              ctaLabel?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesCards2';
+          }
+        | {
+            title?: string | null;
+            items: {
+              title: string;
+              desc: string;
+              icon?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'features2';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            items: {
+              title: string;
+              desc: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'whyUs1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            items: {
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'issues';
+          }
+        | {
+            title?: string | null;
+            steps: {
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'repairSteps1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            hint?: string | null;
+            items: {
+              name: string;
+              text: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'reviews1';
+          }
+        | {
+            variant?: string | null;
+            /**
+             * تصویر پس‌زمینه (SEO-friendly)
+             */
+            backgroundImage: number | Media;
+            badgeText?: string | null;
+            title: string;
+            description?: string | null;
+            bullets: {
+              text: string;
+              id?: string | null;
+            }[];
+            sideCard: {
+              kicker?: string | null;
+              headline?: string | null;
+              items?:
+                | {
+                    title: string;
+                    desc?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              phoneCta: {
+                label?: string | null;
+                tel: string;
+              };
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'repairSpecial1';
+          }
+        | {
+            variant?: string | null;
+            title: string;
+            /**
+             * تصویر بزرگ اصلی
+             */
+            heroImage: number | Media;
+            /**
+             * تصویر کناری/استیکی
+             */
+            sideImage: number | Media;
+            /**
+             * زیرنویس تصویر اصلی
+             */
+            caption?: string | null;
+            intro?: {
+              headline?: string | null;
+              p1?: string | null;
+              p2?: string | null;
+            };
+            serviceListTitle?: string | null;
+            serviceList?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * بخش‌های متن طولانی (کارت‌های توضیحی)
+             */
+            contentBlocks?:
+              | {
+                  title: string;
+                  body: string;
+                  id?: string | null;
+                }[]
+              | null;
+            processStepsTitle?: string | null;
+            processSteps?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'repairSpecial2';
+          }
+        | {
+            title?: string | null;
+            pickup?: {
+              title?: string | null;
+              description?: string | null;
+            };
+            branches?: {
+              title?: string | null;
+              items?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            image?: (number | null) | Media;
+            areasServed?:
+              | {
+                  area: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'coverage';
+          }
+        | {
+            title?: string | null;
+            items: {
+              title: string;
+              address: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'branches1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            primaryButton: {
+              label?: string | null;
+              tel: string;
+            };
+            secondaryButton: {
+              label?: string | null;
+              href: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact1';
+          }
+        | {
+            title?: string | null;
+            subtitle?: string | null;
+            phone: {
+              tel: string;
+              display?: string | null;
+            };
+            buttonLabel?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact2';
+          }
+        | {
+            variant?: string | null;
+            badgeText?: string | null;
+            title: string;
+            description?: string | null;
+            primaryButton: {
+              label?: string | null;
+              tel: string;
+              phoneDisplay?: string | null;
+            };
+            sideCard?: {
+              brand?: string | null;
+              headline?: string | null;
+              items?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contact3';
+          }
+        | {
+            title?: string | null;
+            items?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
+          }
+        | {
+            variant?: string | null;
+            title?: string | null;
+            intro?: string | null;
+            items: {
+              q: string;
+              a: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq2';
+          }
+        | {
+            title: string;
+            description?: string | null;
+            buttons?:
+              | {
+                  label: string;
+                  href: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cta';
+          }
+        | {
+            kicker?: string | null;
+            title: string;
+            description?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            heroImage: number | Media;
+            primaryButton: {
+              label?: string | null;
+              href: string;
+            };
+            secondaryButton: {
+              label?: string | null;
+              href: string;
+            };
+            pills?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'landingHeroImage';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            description?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            branchesTitle?: string | null;
+            branches?:
+              | {
+                  title: string;
+                  address: string;
+                  id?: string | null;
+                }[]
+              | null;
+            image?: (number | null) | Media;
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'coverageWithBranches';
+          }
+        | {
+            sectionId?: string | null;
+            image: number | Media;
+            imageCaption?: string | null;
+            title: string;
+            features: {
+              title: string;
+              desc?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageWithFeatureList';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            intro?: string | null;
+            items: {
+              title: string;
+              desc?: string | null;
+              iconImage?: (number | null) | Media;
+              href: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesGridWithAnchors';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            steps: {
+              title: string;
+              desc?: string | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stepsTimeline';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            desc?: string | null;
+            button: {
+              label: string;
+              href: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'simpleCTA';
+          }
+        | {
+            sectionId: string;
+            title: string;
+            content?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            image?: (number | null) | Media;
+            pills?:
+              | {
+                  text: string;
+                  id?: string | null;
+                }[]
+              | null;
+            layout?: ('imageRight' | 'imageLeft') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'serviceDetailSection';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            items: {
+              question: string;
+              answer: string;
+              bullets?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'issuesAccordion';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            intro?: string | null;
+            rows: {
+              service: string;
+              priceRange: string;
+              eta?: string | null;
+              note?: string | null;
+              id?: string | null;
+            }[];
+            footnote?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pricingTable';
+          }
+        | {
+            sectionId?: string | null;
+            title: string;
+            items: {
+              q: string;
+              a: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faqAccordion';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  site: number | Site;
+  title: string;
+  slug: string;
+  excerpt?: string | null;
+  featuredImage?: (number | null) | Media;
+  categories?: (number | Category)[] | null;
+  publishedAt?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  site: number | Site;
+  title: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -180,20 +1363,40 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'sites';
+        value: number | Site;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -203,10 +1406,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -226,7 +1429,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -237,6 +1440,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
+  sites?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -256,10 +1461,27 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sites_select".
+ */
+export interface SitesSelect<T extends boolean = true> {
+  name?: T;
+  primaryDomain?: T;
+  isActive?: T;
+  logo?: T;
+  brandPrimary?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  site?: T;
   alt?: T;
+  mediaKind?: T;
+  aparatUrl?: T;
+  aparatIframe?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -271,6 +1493,1315 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  site?: T;
+  title?: T;
+  pageType?: T;
+  sections?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              image?: T;
+              primaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        heroPro?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              badges?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              quickContact?:
+                | T
+                | {
+                    title?: T;
+                    phone?: T;
+                    phoneDisplay?: T;
+                    whatsapp?: T;
+                    addressLinkLabel?: T;
+                    addressLinkHref?: T;
+                    hint?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        videoHero?:
+          | T
+          | {
+              poster?: T;
+              video?: T;
+              alt?: T;
+              preload?: T;
+              aspect?: T;
+              muted?: T;
+              playsInline?: T;
+              loop?: T;
+              id?: T;
+              blockName?: T;
+            };
+        servicesCards1?:
+          | T
+          | {
+              title?: T;
+              moreLink?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    button?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        servicesCards2?:
+          | T
+          | {
+              title?: T;
+              moreLink?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    href?: T;
+                    ctaLabel?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        features2?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        whyUs1?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        issues?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              items?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        repairSteps1?:
+          | T
+          | {
+              title?: T;
+              steps?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        reviews1?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              hint?: T;
+              items?:
+                | T
+                | {
+                    name?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        repairSpecial1?:
+          | T
+          | {
+              variant?: T;
+              backgroundImage?: T;
+              badgeText?: T;
+              title?: T;
+              description?: T;
+              bullets?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              sideCard?:
+                | T
+                | {
+                    kicker?: T;
+                    headline?: T;
+                    items?:
+                      | T
+                      | {
+                          title?: T;
+                          desc?: T;
+                          id?: T;
+                        };
+                    phoneCta?:
+                      | T
+                      | {
+                          label?: T;
+                          tel?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        repairSpecial2?:
+          | T
+          | {
+              variant?: T;
+              title?: T;
+              heroImage?: T;
+              sideImage?: T;
+              caption?: T;
+              intro?:
+                | T
+                | {
+                    headline?: T;
+                    p1?: T;
+                    p2?: T;
+                  };
+              serviceListTitle?: T;
+              serviceList?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              contentBlocks?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              processStepsTitle?: T;
+              processSteps?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        coverage?:
+          | T
+          | {
+              title?: T;
+              pickup?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              branches?:
+                | T
+                | {
+                    title?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                  };
+              image?: T;
+              areasServed?:
+                | T
+                | {
+                    area?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        branches1?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    address?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contact1?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    tel?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contact2?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              phone?:
+                | T
+                | {
+                    tel?: T;
+                    display?: T;
+                  };
+              buttonLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contact3?:
+          | T
+          | {
+              variant?: T;
+              badgeText?: T;
+              title?: T;
+              description?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    tel?: T;
+                    phoneDisplay?: T;
+                  };
+              sideCard?:
+                | T
+                | {
+                    brand?: T;
+                    headline?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq2?:
+          | T
+          | {
+              variant?: T;
+              title?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    q?: T;
+                    a?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        landingHeroImage?:
+          | T
+          | {
+              kicker?: T;
+              title?: T;
+              description?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              heroImage?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              pills?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        coverageWithBranches?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              description?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              branchesTitle?: T;
+              branches?:
+                | T
+                | {
+                    title?: T;
+                    address?: T;
+                    id?: T;
+                  };
+              image?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageWithFeatureList?:
+          | T
+          | {
+              sectionId?: T;
+              image?: T;
+              imageCaption?: T;
+              title?: T;
+              features?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        servicesGridWithAnchors?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    iconImage?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stepsTimeline?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        simpleCTA?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              desc?: T;
+              button?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        serviceDetailSection?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              content?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              image?: T;
+              pills?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              layout?: T;
+              id?: T;
+              blockName?: T;
+            };
+        issuesAccordion?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    bullets?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pricingTable?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              intro?: T;
+              rows?:
+                | T
+                | {
+                    service?: T;
+                    priceRange?: T;
+                    eta?: T;
+                    note?: T;
+                    id?: T;
+                  };
+              footnote?: T;
+              id?: T;
+              blockName?: T;
+            };
+        faqAccordion?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              items?:
+                | T
+                | {
+                    q?: T;
+                    a?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  aboutContent?: T;
+  contact?:
+    | T
+    | {
+        phone?: T;
+        address?: T;
+        mapEmbed?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  site?: T;
+  title?: T;
+  slug?: T;
+  sections?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              image?: T;
+              primaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        heroPro?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              badges?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              quickContact?:
+                | T
+                | {
+                    title?: T;
+                    phone?: T;
+                    phoneDisplay?: T;
+                    whatsapp?: T;
+                    addressLinkLabel?: T;
+                    addressLinkHref?: T;
+                    hint?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        videoHero?:
+          | T
+          | {
+              poster?: T;
+              video?: T;
+              alt?: T;
+              preload?: T;
+              aspect?: T;
+              muted?: T;
+              playsInline?: T;
+              loop?: T;
+              id?: T;
+              blockName?: T;
+            };
+        servicesCards1?:
+          | T
+          | {
+              title?: T;
+              moreLink?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    button?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        servicesCards2?:
+          | T
+          | {
+              title?: T;
+              moreLink?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    href?: T;
+                    ctaLabel?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        features2?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        whyUs1?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        issues?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              items?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        repairSteps1?:
+          | T
+          | {
+              title?: T;
+              steps?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        reviews1?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              hint?: T;
+              items?:
+                | T
+                | {
+                    name?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        repairSpecial1?:
+          | T
+          | {
+              variant?: T;
+              backgroundImage?: T;
+              badgeText?: T;
+              title?: T;
+              description?: T;
+              bullets?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              sideCard?:
+                | T
+                | {
+                    kicker?: T;
+                    headline?: T;
+                    items?:
+                      | T
+                      | {
+                          title?: T;
+                          desc?: T;
+                          id?: T;
+                        };
+                    phoneCta?:
+                      | T
+                      | {
+                          label?: T;
+                          tel?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        repairSpecial2?:
+          | T
+          | {
+              variant?: T;
+              title?: T;
+              heroImage?: T;
+              sideImage?: T;
+              caption?: T;
+              intro?:
+                | T
+                | {
+                    headline?: T;
+                    p1?: T;
+                    p2?: T;
+                  };
+              serviceListTitle?: T;
+              serviceList?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              contentBlocks?:
+                | T
+                | {
+                    title?: T;
+                    body?: T;
+                    id?: T;
+                  };
+              processStepsTitle?: T;
+              processSteps?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        coverage?:
+          | T
+          | {
+              title?: T;
+              pickup?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              branches?:
+                | T
+                | {
+                    title?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                  };
+              image?: T;
+              areasServed?:
+                | T
+                | {
+                    area?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        branches1?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    address?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contact1?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    tel?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contact2?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              phone?:
+                | T
+                | {
+                    tel?: T;
+                    display?: T;
+                  };
+              buttonLabel?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contact3?:
+          | T
+          | {
+              variant?: T;
+              badgeText?: T;
+              title?: T;
+              description?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    tel?: T;
+                    phoneDisplay?: T;
+                  };
+              sideCard?:
+                | T
+                | {
+                    brand?: T;
+                    headline?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              title?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq2?:
+          | T
+          | {
+              variant?: T;
+              title?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    q?: T;
+                    a?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              buttons?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        landingHeroImage?:
+          | T
+          | {
+              kicker?: T;
+              title?: T;
+              description?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              heroImage?: T;
+              primaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryButton?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              pills?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        coverageWithBranches?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              description?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              branchesTitle?: T;
+              branches?:
+                | T
+                | {
+                    title?: T;
+                    address?: T;
+                    id?: T;
+                  };
+              image?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageWithFeatureList?:
+          | T
+          | {
+              sectionId?: T;
+              image?: T;
+              imageCaption?: T;
+              title?: T;
+              features?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        servicesGridWithAnchors?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    iconImage?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stepsTimeline?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        simpleCTA?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              desc?: T;
+              button?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        serviceDetailSection?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              content?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              image?: T;
+              pills?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              layout?: T;
+              id?: T;
+              blockName?: T;
+            };
+        issuesAccordion?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    bullets?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pricingTable?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              intro?: T;
+              rows?:
+                | T
+                | {
+                    service?: T;
+                    priceRange?: T;
+                    eta?: T;
+                    note?: T;
+                    id?: T;
+                  };
+              footnote?: T;
+              id?: T;
+              blockName?: T;
+            };
+        faqAccordion?:
+          | T
+          | {
+              sectionId?: T;
+              title?: T;
+              items?:
+                | T
+                | {
+                    q?: T;
+                    a?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  site?: T;
+  title?: T;
+  slug?: T;
+  excerpt?: T;
+  featuredImage?: T;
+  categories?: T;
+  publishedAt?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  site?: T;
+  title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

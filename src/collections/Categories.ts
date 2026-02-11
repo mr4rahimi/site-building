@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
-export const Posts: CollectionConfig = {
-  slug: 'posts',
+export const Categories: CollectionConfig = {
+  slug: 'categories',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'site', 'publishedAt', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'site', 'updatedAt'],
   },
 
   access: {
@@ -21,7 +21,6 @@ export const Posts: CollectionConfig = {
   },
 
   fields: [
-    // site isolation
     {
       name: 'site',
       type: 'relationship',
@@ -31,7 +30,6 @@ export const Posts: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
 
-    // WordPress-like core
     { name: 'title', type: 'text', required: true },
 
     {
@@ -42,44 +40,6 @@ export const Posts: CollectionConfig = {
       index: true,
       admin: { position: 'sidebar' },
     },
-
-    {
-      name: 'excerpt',
-      label: 'توضیحات کوتاه',
-      type: 'textarea',
-    },
-
-    {
-      name: 'featuredImage',
-      label: 'عکس شاخص',
-      type: 'upload',
-      relationTo: 'media',
-      admin: { position: 'sidebar' },
-    },
-
-    {
-      name: 'categories',
-      label: 'دسته‌بندی‌ها',
-      type: 'relationship',
-      relationTo: 'categories' as any,
-      hasMany: true,
-      admin: { position: 'sidebar' },
-    },
-
-    {
-      name: 'publishedAt',
-      label: 'تاریخ انتشار',
-      type: 'date',
-      admin: { position: 'sidebar' },
-      index: true,
-    },
-
-    {
-      name: 'content',
-      label: 'متن',
-      type: 'richText',
-      required: true,
-    },
   ],
 
   hooks: {
@@ -88,14 +48,12 @@ export const Posts: CollectionConfig = {
         const user = req.user as any
         if (!user) return data
 
-        // auto site
         if (user.role !== 'superadmin') {
           const firstSite = user.sites?.[0]
           const siteId = typeof firstSite === 'string' ? firstSite : firstSite?.id
           data.site = data.site || siteId
         }
 
-        // auto slug
         if (!data.slug && data.title) {
           data.slug = String(data.title)
             .trim()
