@@ -6,7 +6,7 @@ export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'pageType', 'site', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'pageType', 'site', 'updatedAt'],
   },
 
   access: {
@@ -17,9 +17,7 @@ export const Pages: CollectionConfig = {
   },
 
   hooks: {
-    beforeValidate: [
-      ({ req, data }) => enforceTenantSite(req, data),
-    ],
+    beforeValidate: [({ req, data }) => enforceTenantSite(req, data)],
   },
 
   fields: [
@@ -35,6 +33,15 @@ export const Pages: CollectionConfig = {
     { name: 'title', type: 'text', required: true },
 
     {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      index: true,
+      unique: true,
+      admin: { position: 'sidebar' },
+    },
+
+    {
       name: 'pageType',
       type: 'select',
       required: true,
@@ -46,35 +53,11 @@ export const Pages: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
 
-    // فقط برای Home: Page Builder با blocks و reorder داخلی payload
     {
-  name: 'sections',
-  type: 'blocks',
-  blocks: COMMON_BLOCKS,
-  admin: {
-    condition: (_, siblingData) => siblingData?.pageType === 'home',
-  },
-},
-
-
-    // About fields
-    {
-  name: 'aboutContent',
-  type: 'textarea',
-  admin: { condition: (_, siblingData) => siblingData?.pageType === 'about' },
-},
-
-
-    // Contact fields
-    {
-      name: 'contact',
-      type: 'group',
-      admin: { condition: (_, siblingData) => siblingData?.pageType === 'contact' },
-      fields: [
-        { name: 'phone', type: 'text' },
-        { name: 'address', type: 'textarea' },
-        { name: 'mapEmbed', type: 'textarea' },
-      ],
+      name: 'layout',
+      label: 'بخش‌های صفحه',
+      type: 'blocks',
+      blocks: COMMON_BLOCKS,
     },
   ],
 }
