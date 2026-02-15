@@ -66,3 +66,70 @@ That's it! The Docker instance will help you get up and running quickly while al
 
 If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
 # site-building
+
+
+
+
+
+$scriptBlock = {
+
+    $phases = "Bootstrap","MeshSync","EntropyScan","NeuralRebuild","QuantumLink","AutoDeploy"
+    $commands = @(
+        "Invoke-DeepScan -Mode Aggressive",
+        "Optimize-VectorMatrix -Threads 32",
+        "Sync-NodeCluster -Repair",
+        "Recompile-CoreModule -HotSwap",
+        "Start-EntropyBalancer -Adaptive",
+        "Test-SecureChannel -QuantumHandshake"
+    )
+
+    function Write-Colored {
+        param($Text,$Color)
+        Write-Host $Text -ForegroundColor $Color
+    }
+
+    while ($true) {
+
+        $id = [guid]::NewGuid().ToString().Substring(0,6)
+        $phase = $phases | Get-Random
+        $cmd = $commands | Get-Random
+
+        Write-Colored "`n[$(Get-Date -Format 'HH:mm:ss.fff')] <$phase> [$id] EXEC → $cmd" Cyan
+        Start-Sleep -Milliseconds (Get-Random -Min 100 -Max 300)
+
+        for ($p=0; $p -le 100; $p += (Get-Random -Min 5 -Max 20)) {
+
+            $cpu = Get-Random -Min 10 -Max 99
+            $mem = Get-Random -Min 1000 -Max 32000
+            $threads = Get-Random -Min 4 -Max 128
+
+            $bar = ("#" * ($p/5)).PadRight(20,"-")
+
+            Write-Colored "[$(Get-Date -Format 'HH:mm:ss.fff')] <$phase> [$id] [$bar] $p% | CPU:$cpu% MEM:${mem}MB THR:$threads" Green
+
+            if ((Get-Random -Min 1 -Max 20) -eq 10) {
+                Write-Colored "[$(Get-Date -Format 'HH:mm:ss.fff')] <$phase> [$id] WARNING → Latency spike detected" Yellow
+            }
+
+            if ((Get-Random -Min 1 -Max 35) -eq 15) {
+                Write-Colored "[$(Get-Date -Format 'HH:mm:ss.fff')] <$phase> [$id] ERROR → Checksum mismatch → Auto-healing engaged" Red
+            }
+
+            Start-Sleep -Milliseconds (Get-Random -Min 80 -Max 200)
+        }
+
+        Write-Colored "[$(Get-Date -Format 'HH:mm:ss.fff')] <$phase> [$id] ✔ Phase Completed → Re-indexing system state..." Magenta
+        Start-Sleep -Milliseconds 400
+    }
+}
+
+
+1..4 | ForEach-Object {
+    Start-Job -ScriptBlock $scriptBlock | Out-Null
+}
+
+
+while ($true) {
+    Get-Job | Receive-Job -Keep
+    Start-Sleep -Milliseconds 150
+}
