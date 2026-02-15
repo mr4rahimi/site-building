@@ -196,9 +196,8 @@ export interface Page {
   id: number;
   site: number | Site;
   title: string;
-  slug: string;
   pageType: 'home' | 'about' | 'contact';
-  layout?:
+  sections?:
     | (
         | {
             headline: string;
@@ -738,6 +737,12 @@ export interface Page {
           }
       )[]
     | null;
+  aboutContent?: string | null;
+  contact?: {
+    phone?: string | null;
+    address?: string | null;
+    mapEmbed?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -1496,9 +1501,8 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   site?: T;
   title?: T;
-  slug?: T;
   pageType?: T;
-  layout?:
+  sections?:
     | T
     | {
         hero?:
@@ -2123,6 +2127,14 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+      };
+  aboutContent?: T;
+  contact?:
+    | T
+    | {
+        phone?: T;
+        address?: T;
+        mapEmbed?: T;
       };
   updatedAt?: T;
   createdAt?: T;
