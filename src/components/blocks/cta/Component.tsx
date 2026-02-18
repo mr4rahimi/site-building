@@ -1,39 +1,34 @@
 import React from 'react'
+import type { Page } from '@/payload-types'
+import styles from './cta.module.css'
+import { cssVarStyle, themeVars } from '../_shared/blockTheme'
 
-type Button = { label?: string; href?: string }
+type CTAProps = Extract<NonNullable<Page['layout']>[number], { blockType: 'cta' }>
 
-type Props = {
-  title?: string
-  description?: string
-  buttons?: Button[]
-}
-
-export default function CTABlock(props: Props) {
-  const { title, description, buttons } = props
+export default function CTABlock(props: CTAProps) {
+  const { title, description, buttons, theme } = props
+  const style = cssVarStyle(themeVars(theme))
 
   return (
-    <section style={{ padding: 24, border: '1px solid #eee', borderRadius: 12 }}>
-      {title && <h2>{title}</h2>}
-      {description && <p>{description}</p>}
+    <section className={`sf-section ${styles.rtl}`} style={style}>
+      <div className="sf-container">
+        <div className={`sf-card ${styles.card}`}>
+          <div className={styles.content}>
+            <h2 className={styles.title}>{title}</h2>
+            {description ? <p className={styles.desc}>{description}</p> : null}
+          </div>
 
-      {!!buttons?.length && (
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          {buttons.map((b, i) => (
-            <a
-              key={i}
-              href={b.href || '#'}
-              style={{
-                padding: '10px 14px',
-                border: '1px solid #ddd',
-                borderRadius: 10,
-                textDecoration: 'none',
-              }}
-            >
-              {b.label || 'Button'}
-            </a>
-          ))}
+          {!!buttons?.length ? (
+            <div className={styles.actions}>
+              {buttons.map((b) => (
+                <a key={b.id ?? b.href} href={b.href} className={styles.primaryBtn}>
+                  {b.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
         </div>
-      )}
+      </div>
     </section>
   )
 }

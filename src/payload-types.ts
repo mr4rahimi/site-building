@@ -196,8 +196,9 @@ export interface Page {
   id: number;
   site: number | Site;
   title: string;
+  slug: string;
   pageType: 'home' | 'about' | 'contact';
-  sections?:
+  layout?:
     | (
         | {
             headline: string;
@@ -466,6 +467,33 @@ export interface Page {
               address: string;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Card background (hex) مثل #0b1220 یا #ffffff
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex) مثل #334155
+               */
+              borderColor?: string | null;
+              /**
+               * Title text color (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Address / secondary text color (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent color (hex) مثل #2563eb
+               */
+              accentColor?: string | null;
+              /**
+               * Soft background for icon (hex) مثل #eff6ff
+               */
+              accentSoftBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'branches1';
@@ -481,6 +509,49 @@ export interface Page {
               label?: string | null;
               href: string;
             };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Card background (hex) مثل #0b1220 یا #ffffff
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Glow / gradient color (hex) مثل #10b981
+               */
+              glowColor?: string | null;
+              /**
+               * Title text color (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Subtitle text color (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Primary button bg (hex) مثل #10b981
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary button hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary button text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary border (hex)
+               */
+              secondaryBorderColor?: string | null;
+              /**
+               * Secondary hover bg (hex)
+               */
+              secondaryHoverBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'contact1';
@@ -493,6 +564,45 @@ export interface Page {
               display?: string | null;
             };
             buttonLabel?: string | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Gradient start (hex) مثل #020617
+               */
+              bgFrom?: string | null;
+              /**
+               * Gradient middle (hex) مثل #0b1220
+               */
+              bgVia?: string | null;
+              /**
+               * Gradient end (hex) مثل #020617
+               */
+              bgTo?: string | null;
+              /**
+               * Title text (hex) مثل #ffffff
+               */
+              textColor?: string | null;
+              /**
+               * Subtitle text (hex) مثل #cbd5e1
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent glow (hex) مثل #38bdf8 یا #a78bfa
+               */
+              accentColor?: string | null;
+              /**
+               * Button bg (hex) مثل #ffffff
+               */
+              buttonBg?: string | null;
+              /**
+               * Button text (hex) مثل #0f172a
+               */
+              buttonText?: string | null;
+              /**
+               * Button hover bg (hex)
+               */
+              buttonHoverBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'contact2';
@@ -516,6 +626,49 @@ export interface Page {
                     id?: string | null;
                   }[]
                 | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Main card bg (hex) مثل #0b1220 یا #ffffff
+               */
+              cardBg?: string | null;
+              /**
+               * Side card bg (hex)
+               */
+              sideCardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Description / muted text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex) مثل #2563eb یا #10b981
+               */
+              accentColor?: string | null;
+              /**
+               * Badge bg (hex)
+               */
+              badgeBg?: string | null;
+              /**
+               * Primary button bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary button hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary button text (hex)
+               */
+              buttonTextColor?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -557,6 +710,29 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Button background (hex) مثل #2563eb
+               */
+              primaryColor?: string | null;
+              /**
+               * Button hover background (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Button text color (hex) مثل #ffffff
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Card background (hex) مثل #0b1220
+               */
+              cardBg?: string | null;
+              /**
+               * Title/description text color (hex)
+               */
+              textColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta';
@@ -737,12 +913,6 @@ export interface Page {
           }
       )[]
     | null;
-  aboutContent?: string | null;
-  contact?: {
-    phone?: string | null;
-    address?: string | null;
-    mapEmbed?: string | null;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -1024,6 +1194,33 @@ export interface Service {
               address: string;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Card background (hex) مثل #0b1220 یا #ffffff
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex) مثل #334155
+               */
+              borderColor?: string | null;
+              /**
+               * Title text color (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Address / secondary text color (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent color (hex) مثل #2563eb
+               */
+              accentColor?: string | null;
+              /**
+               * Soft background for icon (hex) مثل #eff6ff
+               */
+              accentSoftBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'branches1';
@@ -1039,6 +1236,49 @@ export interface Service {
               label?: string | null;
               href: string;
             };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Card background (hex) مثل #0b1220 یا #ffffff
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Glow / gradient color (hex) مثل #10b981
+               */
+              glowColor?: string | null;
+              /**
+               * Title text color (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Subtitle text color (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Primary button bg (hex) مثل #10b981
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary button hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary button text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary border (hex)
+               */
+              secondaryBorderColor?: string | null;
+              /**
+               * Secondary hover bg (hex)
+               */
+              secondaryHoverBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'contact1';
@@ -1051,6 +1291,45 @@ export interface Service {
               display?: string | null;
             };
             buttonLabel?: string | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Gradient start (hex) مثل #020617
+               */
+              bgFrom?: string | null;
+              /**
+               * Gradient middle (hex) مثل #0b1220
+               */
+              bgVia?: string | null;
+              /**
+               * Gradient end (hex) مثل #020617
+               */
+              bgTo?: string | null;
+              /**
+               * Title text (hex) مثل #ffffff
+               */
+              textColor?: string | null;
+              /**
+               * Subtitle text (hex) مثل #cbd5e1
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent glow (hex) مثل #38bdf8 یا #a78bfa
+               */
+              accentColor?: string | null;
+              /**
+               * Button bg (hex) مثل #ffffff
+               */
+              buttonBg?: string | null;
+              /**
+               * Button text (hex) مثل #0f172a
+               */
+              buttonText?: string | null;
+              /**
+               * Button hover bg (hex)
+               */
+              buttonHoverBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'contact2';
@@ -1074,6 +1353,49 @@ export interface Service {
                     id?: string | null;
                   }[]
                 | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Main card bg (hex) مثل #0b1220 یا #ffffff
+               */
+              cardBg?: string | null;
+              /**
+               * Side card bg (hex)
+               */
+              sideCardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Description / muted text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex) مثل #2563eb یا #10b981
+               */
+              accentColor?: string | null;
+              /**
+               * Badge bg (hex)
+               */
+              badgeBg?: string | null;
+              /**
+               * Primary button bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary button hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary button text (hex)
+               */
+              buttonTextColor?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -1115,6 +1437,29 @@ export interface Service {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Button background (hex) مثل #2563eb
+               */
+              primaryColor?: string | null;
+              /**
+               * Button hover background (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Button text color (hex) مثل #ffffff
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Card background (hex) مثل #0b1220
+               */
+              cardBg?: string | null;
+              /**
+               * Title/description text color (hex)
+               */
+              textColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta';
@@ -1501,8 +1846,9 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   site?: T;
   title?: T;
+  slug?: T;
   pageType?: T;
-  sections?:
+  layout?:
     | T
     | {
         hero?:
@@ -1811,6 +2157,17 @@ export interface PagesSelect<T extends boolean = true> {
                     address?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    accentSoftBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -1831,6 +2188,21 @@ export interface PagesSelect<T extends boolean = true> {
                     label?: T;
                     href?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    glowColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryBorderColor?: T;
+                    secondaryHoverBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -1846,6 +2218,20 @@ export interface PagesSelect<T extends boolean = true> {
                     display?: T;
                   };
               buttonLabel?: T;
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    bgFrom?: T;
+                    bgVia?: T;
+                    bgTo?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    buttonBg?: T;
+                    buttonText?: T;
+                    buttonHoverBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -1874,6 +2260,21 @@ export interface PagesSelect<T extends boolean = true> {
                           text?: T;
                           id?: T;
                         };
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    cardBg?: T;
+                    sideCardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    badgeBg?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
                   };
               id?: T;
               blockName?: T;
@@ -1919,6 +2320,16 @@ export interface PagesSelect<T extends boolean = true> {
                     label?: T;
                     href?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    cardBg?: T;
+                    textColor?: T;
                   };
               id?: T;
               blockName?: T;
@@ -2127,14 +2538,6 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-      };
-  aboutContent?: T;
-  contact?:
-    | T
-    | {
-        phone?: T;
-        address?: T;
-        mapEmbed?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2456,6 +2859,17 @@ export interface ServicesSelect<T extends boolean = true> {
                     address?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    accentSoftBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2476,6 +2890,21 @@ export interface ServicesSelect<T extends boolean = true> {
                     label?: T;
                     href?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    glowColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryBorderColor?: T;
+                    secondaryHoverBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2491,6 +2920,20 @@ export interface ServicesSelect<T extends boolean = true> {
                     display?: T;
                   };
               buttonLabel?: T;
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    bgFrom?: T;
+                    bgVia?: T;
+                    bgTo?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    buttonBg?: T;
+                    buttonText?: T;
+                    buttonHoverBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2519,6 +2962,21 @@ export interface ServicesSelect<T extends boolean = true> {
                           text?: T;
                           id?: T;
                         };
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    cardBg?: T;
+                    sideCardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    badgeBg?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
                   };
               id?: T;
               blockName?: T;
@@ -2564,6 +3022,16 @@ export interface ServicesSelect<T extends boolean = true> {
                     label?: T;
                     href?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    cardBg?: T;
+                    textColor?: T;
                   };
               id?: T;
               blockName?: T;

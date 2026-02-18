@@ -1,0 +1,113 @@
+.rtl {
+  direction: rtl;
+}
+
+.header {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+
+  color: var(--br-text, var(--sf-text));
+}
+
+@media (min-width: 860px) {
+  .title {
+    font-size: 28px;
+  }
+}
+
+.list {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 880px;
+
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: start;
+
+  background: var(--br-card-bg, var(--sf-bg));
+  border: 1px solid var(--br-border, var(--sf-border));
+
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+@media (min-width: 860px) {
+  .card {
+    padding: 18px;
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+  }
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.08);
+  border-color: color-mix(in srgb, var(--br-border, var(--sf-border)) 65%, var(--br-accent, var(--sf-primary)));
+}
+
+.iconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  background: var(--br-accent-soft, color-mix(in srgb, var(--br-accent, var(--sf-primary)) 12%, transparent));
+  border: 1px solid color-mix(in srgb, var(--br-accent, var(--sf-primary)) 30%, transparent);
+}
+
+@media (min-width: 860px) {
+  .iconWrap {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+  color: var(--br-accent, var(--sf-primary));
+}
+
+.body {
+  min-width: 0;
+  text-align: right;
+}
+
+.cardTitle {
+  margin: 2px 0 0;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 800;
+
+  color: var(--br-text, var(--sf-text));
+}
+
+@media (min-width: 860px) {
+  .cardTitle {
+    font-size: 18px;
+  }
+}
+
+.address {
+  margin: 8px 0 0;
+  font-style: normal;
+  line-height: 1.9;
+  font-size: 14px;
+
+  color: var(--br-muted, color-mix(in srgb, var(--br-text, var(--sf-text)) 78%, transparent));
+}

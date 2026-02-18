@@ -1,0 +1,88 @@
+.rtl {
+  direction: rtl;
+}
+
+.card {
+  padding: 22px;
+  display: grid;
+  gap: 16px;
+
+  /* allow custom background via vars */
+  background: var(--cta-card-bg, var(--sf-bg));
+}
+
+@media (min-width: 860px) {
+  .card {
+    padding: 28px;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+/* In RTL: content on the right, buttons on the left */
+.content {
+  min-width: 0;
+  text-align: right;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  color: var(--cta-text, var(--sf-text));
+}
+
+.desc {
+  margin: 10px 0 0;
+  line-height: 1.8;
+  font-size: 14px;
+  color: color-mix(in srgb, var(--cta-text, var(--sf-text)) 80%, transparent);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  /* in RTL, this pushes actions to left on wide screens */
+  justify-content: flex-start;
+}
+
+@media (min-width: 860px) {
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  border-radius: 999px;
+  padding: 10px 14px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  background: var(--cta-primary, var(--sf-primary));
+  color: var(--cta-btn-text, var(--sf-primary-foreground));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease, background 120ms ease;
+}
+
+.primaryBtn:hover {
+  background: var(--cta-primary-hover, var(--cta-primary, var(--sf-primary)));
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(2, 6, 23, 0.16);
+}
+
+.primaryBtn:active {
+  transform: translateY(0px);
+  opacity: 0.95;
+}

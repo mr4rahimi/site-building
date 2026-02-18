@@ -8,7 +8,12 @@ export default function RenderBlocks({ layout }: { layout?: any[] }) {
     <>
       {layout.map((block, i) => {
         const Comp = blocks[block.blockType]
-        if (!Comp) return null
+        if (!Comp) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn(`[RenderBlocks] Missing component for blockType: ${block.blockType}`)
+          }
+          return null
+        }
         return <Comp key={block.id || i} {...block} />
       })}
     </>

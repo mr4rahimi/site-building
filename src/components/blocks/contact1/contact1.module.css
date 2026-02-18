@@ -1,0 +1,203 @@
+.rtl {
+  direction: rtl;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 18px;
+
+  background: var(--c1-card-bg, var(--sf-bg));
+  border: 1px solid var(--c1-border, var(--sf-border));
+}
+
+@media (min-width: 860px) {
+  .card {
+    padding: 22px;
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+    gap: 22px;
+  }
+}
+
+.copy {
+  min-width: 0;
+  text-align: right;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  background: color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 28%, transparent);
+}
+
+.pulseDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--c1-glow, var(--sf-primary));
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 55%, transparent);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.kickerText {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--c1-text, var(--sf-text));
+  letter-spacing: -0.01em;
+}
+
+.title {
+  margin: 10px 0 0;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--c1-text, var(--sf-text));
+}
+
+@media (min-width: 860px) {
+  .title {
+    font-size: 26px;
+  }
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.85;
+
+  color: var(--c1-muted, color-mix(in srgb, var(--c1-text, var(--sf-text)) 76%, transparent));
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  /* RTL: align buttons to the left on wide screens */
+  justify-content: flex-start;
+}
+
+@media (min-width: 860px) {
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+.btnIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 18px;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  background: var(--c1-primary, var(--sf-primary));
+  color: var(--c1-btn-text, var(--sf-primary-foreground));
+  border: 1px solid color-mix(in srgb, var(--c1-primary, var(--sf-primary)) 40%, rgba(255, 255, 255, 0.18));
+
+  box-shadow: 0 14px 28px rgba(2, 6, 23, 0.12);
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease, background 120ms ease;
+}
+
+.primaryBtn:hover {
+  background: var(--c1-primary-hover, var(--c1-primary, var(--sf-primary)));
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px rgba(2, 6, 23, 0.16);
+}
+
+.primaryBtn:active {
+  transform: translateY(0px);
+  opacity: 0.96;
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 18px;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  color: var(--c1-text, var(--sf-text));
+  background: transparent;
+
+  border: 1px solid var(--c1-secondary-border, color-mix(in srgb, var(--c1-border, var(--sf-border)) 85%, transparent));
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.secondaryBtn:hover {
+  background: var(--c1-secondary-hover, color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 10%, transparent));
+  border-color: color-mix(in srgb, var(--c1-secondary-border, var(--c1-border, var(--sf-border))) 70%, var(--c1-glow, var(--sf-primary)));
+  transform: translateY(-1px);
+}
+
+.secondaryBtn:active {
+  transform: translateY(0px);
+}
+
+.decor {
+  position: absolute;
+  inset: -2px;
+
+  background:
+    radial-gradient(
+      600px 220px at 15% 0%,
+      color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 26%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      520px 220px at 90% 10%,
+      color-mix(in srgb, var(--c1-glow, var(--sf-primary)) 16%, transparent),
+      transparent 60%
+    );
+  pointer-events: none;
+  opacity: 0.9;
+}

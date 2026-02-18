@@ -1,0 +1,32 @@
+:root {
+  /* Theme defaults (later can be set per-site) */
+  --sf-bg: #ffffff;
+  --sf-text: #0f172a;
+
+  --sf-primary: #2563eb;   /* default primary */
+  --sf-primary-foreground: #ffffff;
+
+  --sf-muted: #f1f5f9;
+  --sf-border: rgba(15, 23, 42, 0.12);
+
+  --sf-radius: 16px;
+  --sf-container: 1120px;
+}
+
+/* Basic layout helpers */
+.sf-container {
+  max-width: var(--sf-container);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.sf-section {
+  padding: 56px 0;
+}
+
+.sf-card {
+  background: var(--sf-bg);
+  border: 1px solid var(--sf-border);
+  border-radius: var(--sf-radius);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+}
