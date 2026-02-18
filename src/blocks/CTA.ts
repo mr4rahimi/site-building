@@ -3,6 +3,9 @@ import type { Block } from 'payload'
 export const CTA: Block = {
   slug: 'cta',
   labels: { singular: 'CTA', plural: 'CTA' },
+
+  imageURL: '/block-thumbnails/cta.webp',
+
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'textarea' },

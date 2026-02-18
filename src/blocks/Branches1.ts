@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const Branches1: Block = {
   slug: 'branches1',
   labels: { singular: 'Branches', plural: 'Branches' },
+  imageURL: '/block-thumbnails/branches1.webp',
   fields: [
     { name: 'title', type: 'text', defaultValue: 'شعب' },
     {

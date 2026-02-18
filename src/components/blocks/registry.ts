@@ -5,6 +5,7 @@ import Branches1Block from './branches1/Component'
 import Contact1Block from './contact1/Component'
 import Contact2Block from './contact2/Component'
 import Contact3Block from './contact3/Component'
+import CoverageBlock from './coverage/Component'
 
 export const blocks: Record<string, ComponentType<any>> = {
   cta: CTABlock,
@@ -12,4 +13,5 @@ export const blocks: Record<string, ComponentType<any>> = {
   contact1: Contact1Block,
   contact2: Contact2Block,
   contact3: Contact3Block,
+  coverage: CoverageBlock,
 }

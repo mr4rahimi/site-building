@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const Contact1: Block = {
   slug: 'contact1',
   labels: { singular: 'Contact CTA (تماس)', plural: 'Contact CTA (تماس)' },
+  imageURL: '/block-thumbnails/contact1.webp',
   fields: [
     { name: 'title', type: 'text', defaultValue: 'برای تعمیر آماده‌ای؟' },
     { name: 'subtitle', type: 'text', defaultValue: 'همین الان تماس بگیر یا در واتساپ پیام بده.' },

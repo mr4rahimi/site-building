@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const Contact2: Block = {
   slug: 'contact2',
   labels: { singular: 'Contact 2', plural: 'Contact 2' },
+  imageURL: '/block-thumbnails/contact2.webp',
   fields: [
     { name: 'title', type: 'text', defaultValue: 'نیاز به تعمیرات داری؟' },
     { name: 'subtitle', type: 'textarea' },

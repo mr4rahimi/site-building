@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const Contact3: Block = {
   slug: 'contact3',
   labels: { singular: 'Contact 3', plural: 'Contact 3' },
+  imageURL: '/block-thumbnails/contact3.webp',
   fields: [
     { name: 'variant', type: 'text', defaultValue: 'animated', admin: { position: 'sidebar' } },
 

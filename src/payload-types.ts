@@ -456,6 +456,41 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section background (hex) مثل #ffffff یا #0b1220
+               */
+              sectionBg?: string | null;
+              /**
+               * Card background (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Primary text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex) مثل #2563eb یا #10b981
+               */
+              accentColor?: string | null;
+              /**
+               * Chip bg (hex)
+               */
+              chipBg?: string | null;
+              /**
+               * Chip text (hex)
+               */
+              chipText?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'coverage';
@@ -1183,6 +1218,41 @@ export interface Service {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section background (hex) مثل #ffffff یا #0b1220
+               */
+              sectionBg?: string | null;
+              /**
+               * Card background (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Primary text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex) مثل #2563eb یا #10b981
+               */
+              accentColor?: string | null;
+              /**
+               * Chip bg (hex)
+               */
+              chipBg?: string | null;
+              /**
+               * Chip text (hex)
+               */
+              chipText?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'coverage';
@@ -2143,6 +2213,19 @@ export interface PagesSelect<T extends boolean = true> {
                     area?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    chipBg?: T;
+                    chipText?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2844,6 +2927,19 @@ export interface ServicesSelect<T extends boolean = true> {
                 | {
                     area?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    chipBg?: T;
+                    chipText?: T;
                   };
               id?: T;
               blockName?: T;
