@@ -718,6 +718,33 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Item bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Question/title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq';
@@ -731,6 +758,51 @@ export interface Page {
               a: string;
               id?: string | null;
             }[];
+            aside?: {
+              title?: string | null;
+              text?: string | null;
+              items?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              cta?: {
+                label?: string | null;
+                href?: string | null;
+              };
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title/question text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted/answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Aside bg (hex)
+               */
+              asideBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq2';
@@ -821,6 +893,49 @@ export interface Page {
             cta?: {
               label?: string | null;
               href?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section background (hex) مثل #ffffff یا #0b1220
+               */
+              sectionBg?: string | null;
+              /**
+               * Card background (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * CTA bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * CTA hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * CTA text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Branch icon bg (hex)
+               */
+              branchIconBg?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -942,6 +1057,33 @@ export interface Page {
               a: string;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Item bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Question/title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'faqAccordion';
@@ -1480,6 +1622,33 @@ export interface Service {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Item bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Question/title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq';
@@ -1493,6 +1662,51 @@ export interface Service {
               a: string;
               id?: string | null;
             }[];
+            aside?: {
+              title?: string | null;
+              text?: string | null;
+              items?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              cta?: {
+                label?: string | null;
+                href?: string | null;
+              };
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title/question text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted/answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Aside bg (hex)
+               */
+              asideBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'faq2';
@@ -1583,6 +1797,49 @@ export interface Service {
             cta?: {
               label?: string | null;
               href?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section background (hex) مثل #ffffff یا #0b1220
+               */
+              sectionBg?: string | null;
+              /**
+               * Card background (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border color (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * CTA bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * CTA hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * CTA text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Branch icon bg (hex)
+               */
+              branchIconBg?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -1704,6 +1961,33 @@ export interface Service {
               a: string;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Item bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Question/title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'faqAccordion';
@@ -2373,6 +2657,17 @@ export interface PagesSelect<T extends boolean = true> {
                     answer?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -2388,6 +2683,36 @@ export interface PagesSelect<T extends boolean = true> {
                     q?: T;
                     a?: T;
                     id?: T;
+                  };
+              aside?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    cta?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    asideBg?: T;
                   };
               id?: T;
               blockName?: T;
@@ -2475,6 +2800,21 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     label?: T;
                     href?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    branchIconBg?: T;
                   };
               id?: T;
               blockName?: T;
@@ -2617,6 +2957,17 @@ export interface PagesSelect<T extends boolean = true> {
                     q?: T;
                     a?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
                   };
               id?: T;
               blockName?: T;
@@ -3088,6 +3439,17 @@ export interface ServicesSelect<T extends boolean = true> {
                     answer?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3103,6 +3465,36 @@ export interface ServicesSelect<T extends boolean = true> {
                     q?: T;
                     a?: T;
                     id?: T;
+                  };
+              aside?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    items?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    cta?:
+                      | T
+                      | {
+                          label?: T;
+                          href?: T;
+                        };
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    asideBg?: T;
                   };
               id?: T;
               blockName?: T;
@@ -3190,6 +3582,21 @@ export interface ServicesSelect<T extends boolean = true> {
                 | {
                     label?: T;
                     href?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    branchIconBg?: T;
                   };
               id?: T;
               blockName?: T;
@@ -3332,6 +3739,17 @@ export interface ServicesSelect<T extends boolean = true> {
                     q?: T;
                     a?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
                   };
               id?: T;
               blockName?: T;
