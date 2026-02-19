@@ -7,7 +7,7 @@ type CTAProps = Extract<NonNullable<Page['layout']>[number], { blockType: 'cta' 
 
 export default function CTABlock(props: CTAProps) {
   const { title, description, buttons, theme } = props
-  const style = cssVarStyle(themeVars(theme))
+  const style = cssVarStyle(themeVars(theme as any))
 
   return (
     <section className={`sf-section ${styles.rtl}`} style={style}>
