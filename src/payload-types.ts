@@ -301,9 +301,43 @@ export interface Page {
             items: {
               title: string;
               desc: string;
+              /**
+               * نام آیکن از lucide-react (PascalCase). خالی باشد پیش‌فرض می‌شود.
+               */
               icon?: string | null;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Desc text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Icon bg (hex)
+               */
+              iconBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'features2';
@@ -1205,9 +1239,43 @@ export interface Service {
             items: {
               title: string;
               desc: string;
+              /**
+               * نام آیکن از lucide-react (PascalCase). خالی باشد پیش‌فرض می‌شود.
+               */
               icon?: string | null;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Desc text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Icon bg (hex)
+               */
+              iconBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'features2';
@@ -2333,6 +2401,18 @@ export interface PagesSelect<T extends boolean = true> {
                     icon?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    iconBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3114,6 +3194,18 @@ export interface ServicesSelect<T extends boolean = true> {
                     desc?: T;
                     icon?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    iconBg?: T;
                   };
               id?: T;
               blockName?: T;

@@ -1,0 +1,116 @@
+.rtl {
+  direction: rtl;
+}
+
+.section {
+  background: var(--f2-bg, transparent);
+}
+
+.header {
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: var(--f2-text, var(--sf-text));
+}
+
+@media (min-width: 860px) {
+  .title {
+    font-size: 30px;
+  }
+}
+
+.sub {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--f2-muted, color-mix(in srgb, var(--f2-text, var(--sf-text)) 70%, transparent));
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+.card {
+  padding: 16px;
+  background: var(--f2-card-bg, var(--sf-bg));
+  border: 1px solid var(--f2-border, var(--sf-border));
+  overflow: hidden;
+  position: relative;
+
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.08);
+  border-color: color-mix(in srgb, var(--f2-border, var(--sf-border)) 65%, var(--f2-accent, var(--sf-primary)));
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.iconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+
+  background: var(--f2-ic-bg, color-mix(in srgb, var(--f2-accent, var(--sf-primary)) 12%, transparent));
+  border: 1px solid color-mix(in srgb, var(--f2-accent, var(--sf-primary)) 22%, transparent);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  color: var(--f2-accent, var(--sf-primary));
+}
+
+.head {
+  min-width: 0;
+  text-align: right;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 950;
+  color: var(--f2-text, var(--sf-text));
+}
+
+.desc {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--f2-muted, color-mix(in srgb, var(--f2-text, var(--sf-text)) 76%, transparent));
+}
+
+.footerLine {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--f2-accent, var(--sf-primary)) 0%, transparent),
+    color-mix(in srgb, var(--f2-accent, var(--sf-primary)) 60%, transparent),
+    transparent
+  );
+  opacity: 0.9;
+}
