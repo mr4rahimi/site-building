@@ -203,10 +203,58 @@ export interface Page {
         | {
             headline: string;
             subheadline?: string | null;
+            badgeText?: string | null;
             image?: (number | null) | Media;
             primaryCta?: {
               label?: string | null;
               href?: string | null;
+            };
+            secondaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Hero bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Headline text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Subheadline text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Primary button bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary button hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary button text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary button bg (hex)
+               */
+              secondaryBg?: string | null;
+              /**
+               * Secondary button text (hex)
+               */
+              secondaryText?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -1141,10 +1189,58 @@ export interface Service {
         | {
             headline: string;
             subheadline?: string | null;
+            badgeText?: string | null;
             image?: (number | null) | Media;
             primaryCta?: {
               label?: string | null;
               href?: string | null;
+            };
+            secondaryCta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Hero bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Headline text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Subheadline text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Primary button bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary button hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary button text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary button bg (hex)
+               */
+              secondaryBg?: string | null;
+              /**
+               * Secondary button text (hex)
+               */
+              secondaryText?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -2278,12 +2374,34 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               headline?: T;
               subheadline?: T;
+              badgeText?: T;
               image?: T;
               primaryCta?:
                 | T
                 | {
                     label?: T;
                     href?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryBg?: T;
+                    secondaryText?: T;
                   };
               id?: T;
               blockName?: T;
@@ -3072,12 +3190,34 @@ export interface ServicesSelect<T extends boolean = true> {
           | {
               headline?: T;
               subheadline?: T;
+              badgeText?: T;
               image?: T;
               primaryCta?:
                 | T
                 | {
                     label?: T;
                     href?: T;
+                  };
+              secondaryCta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryBg?: T;
+                    secondaryText?: T;
                   };
               id?: T;
               blockName?: T;

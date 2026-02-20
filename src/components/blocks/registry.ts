@@ -11,6 +11,7 @@ import FAQBlock from './faq/Component'
 import FAQ2Block from './faq2/Component'
 import FAQAccordionBlock from './faqAccordion/Component'
 import Features2Block from './features2/component'
+import HeroBlock from './hero/component'
 
 export const blocks: Record<string, ComponentType<any>> = {
   cta: CTABlock,
@@ -24,4 +25,5 @@ export const blocks: Record<string, ComponentType<any>> = {
   faq2: FAQ2Block,
   faqAccordion: FAQAccordionBlock,
   features2: Features2Block,
+  hero: HeroBlock,
 }

@@ -3,7 +3,7 @@ import type { Block } from 'payload'
 export const Features2: Block = {
   slug: 'features2',
   labels: { singular: 'Features 2', plural: 'Features 2' },
-  imageURL: '/block-thumbnails/features2.webp',
+  imageURL: 'gi/block-thumbnails/features2.webp',
   fields: [
     { name: 'title', type: 'text', defaultValue: 'ویژگی‌ها' },
 
