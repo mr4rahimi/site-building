@@ -1080,6 +1080,37 @@ export interface Page {
               desc?: string | null;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Surface/card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted/desc text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Caption bg (hex)
+               */
+              captionBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'imageWithFeatureList';
@@ -2113,6 +2144,37 @@ export interface Service {
               desc?: string | null;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Surface/card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Muted/desc text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Caption bg (hex)
+               */
+              captionBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'imageWithFeatureList';
@@ -3141,6 +3203,18 @@ export interface PagesSelect<T extends boolean = true> {
                     desc?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    captionBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3972,6 +4046,18 @@ export interface ServicesSelect<T extends boolean = true> {
                     title?: T;
                     desc?: T;
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    captionBg?: T;
                   };
               id?: T;
               blockName?: T;

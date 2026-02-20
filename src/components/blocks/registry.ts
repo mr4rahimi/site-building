@@ -13,6 +13,7 @@ import FAQAccordionBlock from './faqAccordion/Component'
 import Features2Block from './features2/component'
 import HeroBlock from './hero/component'
 import HeroProBlock from './heroPro/Component'
+import ImageWithFeatureListBlock from './imageWithFeatureList/Component'
 
 export const blocks: Record<string, ComponentType<any>> = {
   cta: CTABlock,
@@ -28,4 +29,5 @@ export const blocks: Record<string, ComponentType<any>> = {
   features2: Features2Block,
   hero: HeroBlock,
   heroPro: HeroProBlock,
+  imageWithFeatureList: ImageWithFeatureListBlock,
 }
