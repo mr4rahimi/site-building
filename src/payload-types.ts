@@ -456,6 +456,49 @@ export interface Page {
               text: string;
               id?: string | null;
             }[];
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Chip bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Subtitle text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * CTA bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * CTA hover bg (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * CTA text (hex)
+               */
+              buttonTextColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'issues';
@@ -1520,6 +1563,49 @@ export interface Service {
               text: string;
               id?: string | null;
             }[];
+            cta?: {
+              label?: string | null;
+              href?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Chip bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Subtitle text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * CTA bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * CTA hover bg (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * CTA text (hex)
+               */
+              buttonTextColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'issues';
@@ -2732,6 +2818,26 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3575,6 +3681,26 @@ export interface ServicesSelect<T extends boolean = true> {
                 | {
                     text?: T;
                     id?: T;
+                  };
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
                   };
               id?: T;
               blockName?: T;

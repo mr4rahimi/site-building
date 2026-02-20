@@ -1,0 +1,210 @@
+.rtl {
+  direction: rtl;
+}
+
+.section {
+  background: var(--is-bg, transparent);
+}
+
+.wrap {
+  position: relative;
+  border-radius: calc(var(--sf-radius) + 8px);
+  border: 1px solid color-mix(in srgb, var(--is-border, var(--sf-border)) 85%, transparent);
+  background: color-mix(in srgb, var(--sf-bg) 92%, var(--sf-muted));
+  overflow: hidden;
+
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+@media (min-width: 980px) {
+  .wrap {
+    grid-template-columns: 1fr 1.4fr;
+    align-items: start;
+    padding: 18px;
+    gap: 16px;
+  }
+}
+
+/* subtle diagonal background - different from others */
+.bg {
+  position: absolute;
+  inset: -2px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--is-accent, var(--sf-primary)) 12%, transparent),
+      transparent 45%
+    ),
+    radial-gradient(
+      520px 260px at 85% 15%,
+      color-mix(in srgb, var(--is-accent, var(--sf-primary)) 10%, transparent),
+      transparent 60%
+    );
+  opacity: 0.95;
+}
+
+.header,
+.list {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: right;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.headIconWrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+
+  background: color-mix(in srgb, var(--is-accent, var(--sf-primary)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--is-accent, var(--sf-primary)) 22%, transparent);
+}
+
+.headIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--is-accent, var(--sf-primary));
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: var(--is-text, var(--sf-text));
+}
+
+@media (min-width: 860px) {
+  .title {
+    font-size: 30px;
+  }
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.95;
+  color: var(--is-muted, color-mix(in srgb, var(--is-text, var(--sf-text)) 72%, transparent));
+  max-width: 55ch;
+}
+
+.cta {
+  margin-top: 6px;
+  display: inline-grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+
+  text-decoration: none;
+  padding: 12px 12px;
+  border-radius: 18px;
+
+  background: var(--is-primary, var(--sf-primary));
+  color: var(--is-btn-text, var(--sf-primary-foreground));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  width: 100%;
+  max-width: 360px;
+
+  box-shadow: 0 18px 44px rgba(2, 6, 23, 0.14);
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease, opacity 140ms ease;
+}
+
+.cta:hover {
+  background: var(--is-primary-hover, var(--is-primary, var(--sf-primary)));
+  transform: translateY(-2px);
+  box-shadow: 0 26px 66px rgba(2, 6, 23, 0.18);
+}
+
+.cta:active {
+  transform: translateY(0);
+  opacity: 0.96;
+}
+
+.ctaText {
+  font-size: 14px;
+  font-weight: 950;
+  text-align: right;
+}
+
+.ctaArrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--is-btn-text, #fff) 12%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ctaArrowIcon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.95;
+}
+
+/* Chips */
+.list {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 860px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+.chip {
+  border-radius: 20px;
+  background: var(--is-card-bg, var(--sf-bg));
+  border: 1px solid var(--is-border, var(--sf-border));
+  padding: 12px 12px;
+
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  align-items: center;
+
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.08);
+  border-color: color-mix(in srgb, var(--is-border, var(--sf-border)) 65%, var(--is-accent, var(--sf-primary)));
+}
+
+.chipNum {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+
+  font-weight: 950;
+  font-size: 12px;
+
+  color: var(--is-accent, var(--sf-primary));
+  background: color-mix(in srgb, var(--is-accent, var(--sf-primary)) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--is-accent, var(--sf-primary)) 18%, transparent);
+}
+
+.chipText {
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.9;
+  color: var(--is-text, var(--sf-text));
+  text-align: right;
+}
