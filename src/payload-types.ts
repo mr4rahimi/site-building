@@ -1221,6 +1221,10 @@ export interface Page {
         | {
             sectionId?: string | null;
             title: string;
+            /**
+             * اگر این محتوا واقعاً FAQ است، روشن کنید تا FAQPage schema رندر شود.
+             */
+            enableFAQSchema?: boolean | null;
             items: {
               question: string;
               answer: string;
@@ -1232,6 +1236,33 @@ export interface Page {
                 | null;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Question/title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'issuesAccordion';
@@ -2328,6 +2359,10 @@ export interface Service {
         | {
             sectionId?: string | null;
             title: string;
+            /**
+             * اگر این محتوا واقعاً FAQ است، روشن کنید تا FAQPage schema رندر شود.
+             */
+            enableFAQSchema?: boolean | null;
             items: {
               question: string;
               answer: string;
@@ -2339,6 +2374,33 @@ export interface Service {
                 | null;
               id?: string | null;
             }[];
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Section bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Question/title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Answer text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'issuesAccordion';
@@ -3399,6 +3461,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               sectionId?: T;
               title?: T;
+              enableFAQSchema?: T;
               items?:
                 | T
                 | {
@@ -3411,6 +3474,17 @@ export interface PagesSelect<T extends boolean = true> {
                           id?: T;
                         };
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
                   };
               id?: T;
               blockName?: T;
@@ -4263,6 +4337,7 @@ export interface ServicesSelect<T extends boolean = true> {
           | {
               sectionId?: T;
               title?: T;
+              enableFAQSchema?: T;
               items?:
                 | T
                 | {
@@ -4275,6 +4350,17 @@ export interface ServicesSelect<T extends boolean = true> {
                           id?: T;
                         };
                     id?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
                   };
               id?: T;
               blockName?: T;
