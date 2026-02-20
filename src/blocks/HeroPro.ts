@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const HeroPro: Block = {
   slug: 'heroPro',
   labels: { singular: 'Hero Pro', plural: 'Hero Pro' },
+  imageURL: '/block-thumbnails/heroPro.webp',
   fields: [
     { name: 'eyebrow', type: 'text', defaultValue: 'تعمیرات تخصصی در تهران' },
     { name: 'title', type: 'text', required: true },
@@ -35,7 +36,6 @@ export const HeroPro: Block = {
       ],
     },
 
-    // کارت تماس سریع سمت راست
     {
       name: 'quickContact',
       type: 'group',
@@ -47,6 +47,109 @@ export const HeroPro: Block = {
         { name: 'addressLinkLabel', type: 'text', defaultValue: 'آدرس شعب و فرم تماس' },
         { name: 'addressLinkHref', type: 'text', defaultValue: '/contact' },
         { name: 'hint', type: 'text', defaultValue: '* زمان پاسخگویی سریع در ساعات کاری' },
+      ],
+    },
+
+    {
+      name: 'theme',
+      type: 'group',
+      label: 'Theme',
+      fields: [
+        {
+          name: 'colorMode',
+          type: 'select',
+          defaultValue: 'site',
+          options: [
+            { label: 'Use site default', value: 'site' },
+            { label: 'Custom colors', value: 'custom' },
+          ],
+        },
+
+        // Section / surface
+        {
+          name: 'sectionBg',
+          type: 'text',
+          admin: { condition: (_, s) => s?.colorMode === 'custom', description: 'Hero bg (hex)' },
+        },
+        {
+          name: 'cardBg',
+          type: 'text',
+          admin: { condition: (_, s) => s?.colorMode === 'custom', description: 'Card bg (hex)' },
+        },
+        {
+          name: 'borderColor',
+          type: 'text',
+          admin: { condition: (_, s) => s?.colorMode === 'custom', description: 'Border (hex)' },
+        },
+
+        // Text
+        {
+          name: 'textColor',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Title text (hex)',
+          },
+        },
+        {
+          name: 'mutedTextColor',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Description text (hex)',
+          },
+        },
+
+        // Accent
+        {
+          name: 'accentColor',
+          type: 'text',
+          admin: { condition: (_, s) => s?.colorMode === 'custom', description: 'Accent (hex)' },
+        },
+
+        // Primary button
+        {
+          name: 'primaryColor',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Primary bg (hex)',
+          },
+        },
+        {
+          name: 'primaryHoverColor',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Primary hover (hex)',
+          },
+        },
+        {
+          name: 'buttonTextColor',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Primary text (hex)',
+          },
+        },
+
+        // Secondary button (outline)
+        {
+          name: 'secondaryTextColor',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Secondary text (hex)',
+          },
+        },
+        {
+          name: 'secondaryHoverBg',
+          type: 'text',
+          admin: {
+            condition: (_, s) => s?.colorMode === 'custom',
+            description: 'Secondary hover bg (hex)',
+          },
+        },
       ],
     },
   ],

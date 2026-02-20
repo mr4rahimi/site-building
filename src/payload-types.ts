@@ -288,6 +288,53 @@ export interface Page {
               addressLinkHref?: string | null;
               hint?: string | null;
             };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Hero bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Description text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Primary bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary text (hex)
+               */
+              secondaryTextColor?: string | null;
+              /**
+               * Secondary hover bg (hex)
+               */
+              secondaryHoverBg?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'heroPro';
@@ -1273,6 +1320,53 @@ export interface Service {
               addressLinkLabel?: string | null;
               addressLinkHref?: string | null;
               hint?: string | null;
+            };
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Hero bg (hex)
+               */
+              sectionBg?: string | null;
+              /**
+               * Card bg (hex)
+               */
+              cardBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Description text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Primary bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary text (hex)
+               */
+              secondaryTextColor?: string | null;
+              /**
+               * Secondary hover bg (hex)
+               */
+              secondaryHoverBg?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -2442,6 +2536,22 @@ export interface PagesSelect<T extends boolean = true> {
                     addressLinkHref?: T;
                     hint?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryTextColor?: T;
+                    secondaryHoverBg?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3257,6 +3367,22 @@ export interface ServicesSelect<T extends boolean = true> {
                     addressLinkLabel?: T;
                     addressLinkHref?: T;
                     hint?: T;
+                  };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    sectionBg?: T;
+                    cardBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryTextColor?: T;
+                    secondaryHoverBg?: T;
                   };
               id?: T;
               blockName?: T;
