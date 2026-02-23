@@ -1040,6 +1040,65 @@ export interface Page {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Overlay from (hex) e.g. #020617
+               */
+              overlayFrom?: string | null;
+              /**
+               * Overlay to (hex)
+               */
+              overlayTo?: string | null;
+              /**
+               * Panel bg (hex)
+               */
+              panelBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Description text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Primary bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary text (hex)
+               */
+              secondaryTextColor?: string | null;
+              /**
+               * Secondary hover bg (hex)
+               */
+              secondaryHoverBg?: string | null;
+              /**
+               * Pill bg (hex)
+               */
+              pillBg?: string | null;
+              /**
+               * Pill text (hex)
+               */
+              pillText?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'landingHeroImage';
@@ -1279,6 +1338,15 @@ export interface Page {
               id?: string | null;
             }[];
             footnote?: string | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              background?: string | null;
+              cardBackground?: string | null;
+              textColor?: string | null;
+              mutedText?: string | null;
+              borderColor?: string | null;
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'pricingTable';
@@ -2178,6 +2246,65 @@ export interface Service {
                   id?: string | null;
                 }[]
               | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              /**
+               * Overlay from (hex) e.g. #020617
+               */
+              overlayFrom?: string | null;
+              /**
+               * Overlay to (hex)
+               */
+              overlayTo?: string | null;
+              /**
+               * Panel bg (hex)
+               */
+              panelBg?: string | null;
+              /**
+               * Border (hex)
+               */
+              borderColor?: string | null;
+              /**
+               * Title text (hex)
+               */
+              textColor?: string | null;
+              /**
+               * Description text (hex)
+               */
+              mutedTextColor?: string | null;
+              /**
+               * Accent (hex)
+               */
+              accentColor?: string | null;
+              /**
+               * Primary bg (hex)
+               */
+              primaryColor?: string | null;
+              /**
+               * Primary hover (hex)
+               */
+              primaryHoverColor?: string | null;
+              /**
+               * Primary text (hex)
+               */
+              buttonTextColor?: string | null;
+              /**
+               * Secondary text (hex)
+               */
+              secondaryTextColor?: string | null;
+              /**
+               * Secondary hover bg (hex)
+               */
+              secondaryHoverBg?: string | null;
+              /**
+               * Pill bg (hex)
+               */
+              pillBg?: string | null;
+              /**
+               * Pill text (hex)
+               */
+              pillText?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'landingHeroImage';
@@ -2417,6 +2544,15 @@ export interface Service {
               id?: string | null;
             }[];
             footnote?: string | null;
+            theme?: {
+              colorMode?: ('site' | 'custom') | null;
+              background?: string | null;
+              cardBackground?: string | null;
+              textColor?: string | null;
+              mutedText?: string | null;
+              borderColor?: string | null;
+              accentColor?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'pricingTable';
@@ -3310,6 +3446,25 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    overlayFrom?: T;
+                    overlayTo?: T;
+                    panelBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryTextColor?: T;
+                    secondaryHoverBg?: T;
+                    pillBg?: T;
+                    pillText?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -3505,6 +3660,17 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               footnote?: T;
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    background?: T;
+                    cardBackground?: T;
+                    textColor?: T;
+                    mutedText?: T;
+                    borderColor?: T;
+                    accentColor?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -4186,6 +4352,25 @@ export interface ServicesSelect<T extends boolean = true> {
                     text?: T;
                     id?: T;
                   };
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    overlayFrom?: T;
+                    overlayTo?: T;
+                    panelBg?: T;
+                    borderColor?: T;
+                    textColor?: T;
+                    mutedTextColor?: T;
+                    accentColor?: T;
+                    primaryColor?: T;
+                    primaryHoverColor?: T;
+                    buttonTextColor?: T;
+                    secondaryTextColor?: T;
+                    secondaryHoverBg?: T;
+                    pillBg?: T;
+                    pillText?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -4381,6 +4566,17 @@ export interface ServicesSelect<T extends boolean = true> {
                     id?: T;
                   };
               footnote?: T;
+              theme?:
+                | T
+                | {
+                    colorMode?: T;
+                    background?: T;
+                    cardBackground?: T;
+                    textColor?: T;
+                    mutedText?: T;
+                    borderColor?: T;
+                    accentColor?: T;
+                  };
               id?: T;
               blockName?: T;
             };

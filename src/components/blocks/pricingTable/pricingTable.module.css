@@ -1,0 +1,75 @@
+.pricingTable {
+  background: var(--pt-bg, var(--sf-surface));
+  color: var(--pt-text, var(--sf-text));
+  padding: 4rem 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.intro {
+  color: var(--pt-muted, var(--sf-text-muted));
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: var(--sf-radius);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--pt-card-bg, var(--sf-card-bg));
+  min-width: 720px;
+}
+
+.table thead {
+  background: var(--pt-accent, var(--sf-primary));
+  color: #fff;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: right;
+  border-bottom: 1px solid var(--pt-border, var(--sf-border));
+}
+
+.row:hover {
+  background: rgba(0, 0, 0, 0.02);
+  transition: background 0.2s ease;
+}
+
+.service {
+  font-weight: 600;
+}
+
+.price {
+  font-weight: 500;
+}
+
+.eta {
+  color: var(--pt-muted, var(--sf-text-muted));
+}
+
+.note {
+  font-size: 0.9rem;
+  color: var(--pt-muted, var(--sf-text-muted));
+}
+
+.footnote {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--pt-muted, var(--sf-text-muted));
+  text-align: center;
+}
