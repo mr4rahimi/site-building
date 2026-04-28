@@ -2,9 +2,7 @@ import type { CollectionConfig } from 'payload'
 import type { Where } from 'payload'
 
 function getUserSiteIDs(user: any): string[] {
-  return (
-    user?.sites?.map((s: any) => (typeof s === 'string' ? s : s?.id)).filter(Boolean) || []
-  )
+  return user?.sites?.map((s: any) => (typeof s === 'string' ? s : s?.id)).filter(Boolean) || []
 }
 
 export const Users: CollectionConfig = {
@@ -31,7 +29,6 @@ export const Users: CollectionConfig = {
       }
       return where
     },
-
 
     create: ({ req }) => {
       const user = req.user as any
@@ -61,7 +58,7 @@ export const Users: CollectionConfig = {
     delete: ({ req }) => {
       const user = req.user as any
       if (!user) return false
-      // برای شروع امن: حذف فقط دست superadmin
+
       return user.role === 'superadmin'
     },
   },
@@ -72,22 +69,19 @@ export const Users: CollectionConfig = {
         const user = req.user as any
         if (!user || !data) return data
 
-        // superadmin محدودیت ندارد
         if (user.role === 'superadmin') return data
 
-        // editor حق تغییر role/sites ندارد (حتی برای خودش)
         if (user.role === 'editor') {
           const { role, sites, ...safe } = data as any
           return safe
         }
 
         // siteadmin:
-        // 1) هرگز نتواند کسی را superadmin کند
+
         if ((data as any).role === 'superadmin') {
           ;(data as any).role = 'editor'
         }
 
-        // 2) sites فقط باید زیرمجموعه sites خود siteadmin باشد
         const allowedSiteIDs = new Set(getUserSiteIDs(user))
         const incomingSites = (data as any).sites
 
@@ -99,16 +93,12 @@ export const Users: CollectionConfig = {
 
           ;(data as any).sites = normalized
         } else if (incomingSites) {
-          // اگر تک مقدار آمد، باز هم محدود کن
           const id = typeof incomingSites === 'string' ? incomingSites : incomingSites?.id
           ;(data as any).sites = id && allowedSiteIDs.has(id) ? [id] : []
         } else {
-          // اگر چیزی نفرستاد، برای کاهش خطاها: پیش‌فرض = سایت‌های خودش
           ;(data as any).sites = Array.from(allowedSiteIDs)
         }
 
-        // 3) siteadmin نتواند کاربری بسازد بدون site
-        // (اگر پروژه‌ات بعداً اجازه بده چندسایتی/خالی باشد، این را می‌توان تغییر داد)
         if (!(data as any).sites?.length) {
           ;(data as any).sites = Array.from(allowedSiteIDs)
         }

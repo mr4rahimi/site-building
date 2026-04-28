@@ -11,7 +11,7 @@ export const Sites: CollectionConfig = {
       const user = req.user as any
       if (!user) return false
       if (user.role === 'superadmin') return true
-      // فقط سایت‌هایی که به کاربر وصل شده
+
       return { id: { in: user.sites?.map((s: any) => (typeof s === 'string' ? s : s.id)) || [] } }
     },
     create: ({ req }) => (req.user as any)?.role === 'superadmin',
