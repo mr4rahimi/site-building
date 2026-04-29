@@ -21,13 +21,10 @@ import {
   ItalicFeature,
   UnderlineFeature,
   StrikethroughFeature,
-
 } from '@payloadcms/richtext-lexical'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
-
 
 export default buildConfig({
   serverURL: process.env.PUBLIC_SERVER_URL || 'http://localhost:3000',
@@ -45,34 +42,29 @@ export default buildConfig({
   },
 
   editor: lexicalEditor({
-  features: ({ defaultFeatures }) => [
-    ...defaultFeatures,
-    FixedToolbarFeature(),
-    InlineToolbarFeature(),
-    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5'] }),
-    LinkFeature(),
-    BoldFeature(),
-    ItalicFeature(),
-    UnderlineFeature(),
-    StrikethroughFeature(),
-    UploadFeature({
-      collections: {
-        media: {
-          fields: [],
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      FixedToolbarFeature(),
+      InlineToolbarFeature(),
+      HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5'] }),
+      LinkFeature(),
+      BoldFeature(),
+      ItalicFeature(),
+      UnderlineFeature(),
+      StrikethroughFeature(),
+      UploadFeature({
+        collections: {
+          media: {
+            fields: [],
+          },
         },
-      },
-    }),
-  ],
-}),
-
-
+      }),
+    ],
+  }),
 
   collections: [Users, Sites, Media, Pages, Services, Posts, Categories],
-  
-
 
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
 })
-

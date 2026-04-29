@@ -21,18 +21,6 @@ export async function seedTestUser(): Promise<void> {
       },
     },
   })
-
-  // Create fresh test user
-  /**
-  await payload.create({
-    collection: 'users',
-    data: testUser,
-  })
-}
-
-
- * Cleans up test user after tests
- */
 }
 export async function cleanupTestUser(): Promise<void> {
   const payload = await getPayload({ config })
