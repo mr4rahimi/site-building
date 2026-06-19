@@ -28,6 +28,7 @@ import { ServiceDetailSection } from './ServiceDetailSection'
 import { IssuesAccordion } from './IssuesAccordion'
 import { PricingTable } from './PricingTable'
 import { FAQAccordion } from './FAQAccordion'
+import { ContactForm } from './ContactForm'
 
 export const COMMON_BLOCKS = [
    // Hero variants
@@ -68,4 +69,5 @@ export const COMMON_BLOCKS = [
   IssuesAccordion,
   PricingTable,
   FAQAccordion,
+  ContactForm,
 ]

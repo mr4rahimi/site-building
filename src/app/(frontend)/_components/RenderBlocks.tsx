@@ -1,7 +1,13 @@
 import React from 'react'
 import { blocks } from '@/components/blocks/registry'
 
-export default function RenderBlocks({ layout }: { layout?: any[] }) {
+export default function RenderBlocks({
+  layout,
+  siteSlug,
+}: {
+  layout?: any[]
+  siteSlug?: string
+}) {
   if (!layout?.length) return null
 
   return (
@@ -14,7 +20,9 @@ export default function RenderBlocks({ layout }: { layout?: any[] }) {
           }
           return null
         }
-        return <Comp key={block.id || i} {...block} />
+        // Pass siteSlug to contactForm block for API calls
+        const extraProps = block.blockType === 'contactForm' && siteSlug ? { siteSlug } : {}
+        return <Comp key={block.id || i} {...block} {...extraProps} />
       })}
     </>
   )

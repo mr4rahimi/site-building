@@ -29,6 +29,7 @@ import ServiceDetailSectionBlock from './serviceDetailSection/Component'
 import ServicesCards1Block from './servicesCards1/Component'
 import ServicesCards2Block from './servicesCards2/Component'
 import ServicesGridWithAnchorsBlock from './servicesGridWithAnchors/Component'
+import ContactFormBlock from './contactForm/Component'
 
 export const blocks: Record<string, ComponentType<any>> = {
   cta: CTABlock,
@@ -60,4 +61,5 @@ export const blocks: Record<string, ComponentType<any>> = {
   servicesCards1: ServicesCards1Block,
   servicesCards2: ServicesCards2Block,
   servicesGridWithAnchors: ServicesGridWithAnchorsBlock,
+  contactForm: ContactFormBlock,
 }

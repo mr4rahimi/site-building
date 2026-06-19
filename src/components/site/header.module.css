@@ -1,0 +1,226 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: var(--sf-header-h);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.scrolled {
+  border-color: var(--sf-border);
+  box-shadow: 0 2px 16px rgba(2, 6, 23, 0.06);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 24px;
+}
+
+/* Logo ─────────────────────────────── */
+.logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logoText {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--sf-primary);
+  white-space: nowrap;
+}
+
+/* Nav ───────────────────────────────── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.navLink {
+  padding: 6px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--sf-text);
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: var(--sf-primary);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.navBtn {
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--sf-primary);
+  border: 1.5px solid var(--sf-primary);
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.navBtn:hover {
+  background: var(--sf-primary);
+  color: #fff;
+}
+
+/* Actions ───────────────────────────── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.phoneBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sf-text);
+  background: var(--sf-muted);
+  border-radius: 8px;
+  transition: background 0.15s;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.phoneBtn:hover {
+  background: #e2e8f0;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--sf-primary);
+  border-radius: 10px;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  background: var(--sf-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Mobile toggle ─────────────────────── */
+.toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--sf-text);
+  border-radius: 8px;
+  margin-right: auto;
+  transition: background 0.15s;
+}
+
+.toggle:hover {
+  background: var(--sf-muted);
+}
+
+/* Mobile menu ───────────────────────── */
+.mobileMenu {
+  display: none;
+  background: #fff;
+  border-top: 1px solid var(--sf-border);
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.mobileOpen {
+  max-height: 600px;
+}
+
+.mobileInner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0 20px;
+}
+
+.mobileLink {
+  padding: 12px 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--sf-text);
+  border-radius: 8px;
+  border-bottom: 1px solid var(--sf-border);
+  transition: color 0.15s;
+}
+
+.mobileLink:last-child {
+  border-bottom: none;
+}
+
+.mobileLink:hover {
+  color: var(--sf-primary);
+}
+
+.mobilePhone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sf-text);
+  direction: ltr;
+  justify-content: flex-end;
+}
+
+.mobileCtaBtn {
+  display: block;
+  margin-top: 12px;
+  padding: 14px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--sf-primary);
+  border-radius: 12px;
+}
+
+/* Responsive ────────────────────────── */
+@media (max-width: 768px) {
+  .nav,
+  .actions {
+    display: none;
+  }
+
+  .toggle {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}

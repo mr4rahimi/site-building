@@ -74,6 +74,7 @@ export interface Config {
     services: Service;
     posts: Post;
     categories: Category;
+    'site-settings': SiteSetting;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -125,12 +127,17 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * مدیریت کاربران و سطح دسترسی
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
   role: 'superadmin' | 'siteadmin' | 'editor';
+  /**
+   * سایت‌هایی که این کاربر به آن‌ها دسترسی دارد
+   */
   sites?: (number | Site)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -152,6 +159,8 @@ export interface User {
   collection: 'users';
 }
 /**
+ * مدیریت سایت‌های ثبت‌شده در پلتفرم
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sites".
  */
@@ -170,6 +179,8 @@ export interface Site {
   createdAt: string;
 }
 /**
+ * تصاویر، ویدئوها و فایل‌های آپلود‌شده
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -178,7 +189,13 @@ export interface Media {
   site: number | Site;
   alt: string;
   mediaKind: 'upload' | 'aparat';
+  /**
+   * آدرس مستقیم ویدئو در آپارات
+   */
   aparatUrl?: string | null;
+  /**
+   * کد کامل امبد که آپارات در اختیار می‌گذارد
+   */
   aparatIframe?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -193,6 +210,8 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * صفحات سایت‌ها را مدیریت کنید
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
@@ -201,7 +220,7 @@ export interface Page {
   site: number | Site;
   title: string;
   /**
-   * بدون / اول — مثال: about یا services/repair
+   * بدون / اول — مثال: about یا services
    */
   slug: string;
   pageType: 'home' | 'about' | 'contact';
@@ -1403,6 +1422,8 @@ export interface Page {
   createdAt: string;
 }
 /**
+ * صفحات خدمات سایت‌ها
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
@@ -1410,6 +1431,9 @@ export interface Service {
   id: number;
   site: number | Site;
   title: string;
+  /**
+   * بدون / اول — مثال: laptop-repair
+   */
   slug: string;
   sections?:
     | (
@@ -2609,6 +2633,8 @@ export interface Service {
   createdAt: string;
 }
 /**
+ * مقالات و پست‌های وبلاگ سایت‌ها
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
@@ -2616,6 +2642,9 @@ export interface Post {
   id: number;
   site: number | Site;
   title: string;
+  /**
+   * بدون / اول — مثال: my-post-title
+   */
   slug: string;
   excerpt?: string | null;
   featuredImage?: (number | null) | Media;
@@ -2640,6 +2669,8 @@ export interface Post {
   createdAt: string;
 }
 /**
+ * دسته‌بندی مقالات وبلاگ
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
@@ -2648,6 +2679,103 @@ export interface Category {
   site: number | Site;
   title: string;
   slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * تنظیمات کلی هر سایت — هدر، فوتر، تماس و شبکه‌های اجتماعی
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * هر سایت فقط یک رکورد تنظیمات دارد
+   */
+  site: number | Site;
+  siteTitle: string;
+  general?: {
+    tagline?: string | null;
+    description?: string | null;
+    logo?: (number | null) | Media;
+    /**
+     * نسخه لوگو برای پس‌زمینه تیره (اختیاری)
+     */
+    logoDark?: (number | null) | Media;
+    /**
+     * آیکون مرورگر — بهتر است ۳۲×۳۲ یا ۶۴×۶۴ پیکسل باشد
+     */
+    favicon?: (number | null) | Media;
+  };
+  contact?: {
+    /**
+     * می‌توانید چند شماره اضافه کنید
+     */
+    phones?:
+      | {
+          label?: string | null;
+          number: string;
+          isWhatsApp?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+    email?: string | null;
+    address?: string | null;
+    workingHours?: string | null;
+    mapLink?: string | null;
+  };
+  social?: {
+    instagram?: string | null;
+    telegram?: string | null;
+    whatsapp?: string | null;
+    aparat?: string | null;
+    youtube?: string | null;
+    linkedin?: string | null;
+    twitter?: string | null;
+  };
+  header?: {
+    /**
+     * آیتم‌های منوی ناوبری هدر
+     */
+    navLinks?:
+      | {
+          label: string;
+          href: string;
+          isButton?: boolean | null;
+          openInNewTab?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+    ctaButton?: {
+      label?: string | null;
+      href?: string | null;
+    };
+  };
+  footer?: {
+    aboutText?: string | null;
+    footerLinks?:
+      | {
+          label: string;
+          href: string;
+          id?: string | null;
+        }[]
+      | null;
+    copyright?: string | null;
+  };
+  seo?: {
+    /**
+     * %s جای عنوان صفحه قرار می‌گیرد
+     */
+    metaTitleTemplate?: string | null;
+    defaultMetaDescription?: string | null;
+    /**
+     * بهتر است ۱۲۰۰×۶۳۰ پیکسل باشد
+     */
+    defaultOgImage?: (number | null) | Media;
+    googleAnalyticsId?: string | null;
+    googleSearchConsole?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2702,6 +2830,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'site-settings';
+        value: number | SiteSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -4642,6 +4774,93 @@ export interface CategoriesSelect<T extends boolean = true> {
   site?: T;
   title?: T;
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  site?: T;
+  siteTitle?: T;
+  general?:
+    | T
+    | {
+        tagline?: T;
+        description?: T;
+        logo?: T;
+        logoDark?: T;
+        favicon?: T;
+      };
+  contact?:
+    | T
+    | {
+        phones?:
+          | T
+          | {
+              label?: T;
+              number?: T;
+              isWhatsApp?: T;
+              id?: T;
+            };
+        email?: T;
+        address?: T;
+        workingHours?: T;
+        mapLink?: T;
+      };
+  social?:
+    | T
+    | {
+        instagram?: T;
+        telegram?: T;
+        whatsapp?: T;
+        aparat?: T;
+        youtube?: T;
+        linkedin?: T;
+        twitter?: T;
+      };
+  header?:
+    | T
+    | {
+        navLinks?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              isButton?: T;
+              openInNewTab?: T;
+              id?: T;
+            };
+        ctaButton?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  footer?:
+    | T
+    | {
+        aboutText?: T;
+        footerLinks?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+        copyright?: T;
+      };
+  seo?:
+    | T
+    | {
+        metaTitleTemplate?: T;
+        defaultMetaDescription?: T;
+        defaultOgImage?: T;
+        googleAnalyticsId?: T;
+        googleSearchConsole?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
