@@ -1,0 +1,107 @@
+.section {
+  background: var(--sf-muted);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.subtitle {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sf-primary);
+}
+
+.title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--sf-text);
+  letter-spacing: -0.03em;
+}
+
+.titleLine {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sf-primary);
+  margin: 16px auto 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(2, 6, 23, 0.1);
+}
+
+.numBadge {
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+  color: color-mix(in srgb, var(--sf-primary) 15%, transparent);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+  user-select: none;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sf-text);
+  line-height: 1.4;
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--sf-text) 65%, transparent);
+  flex: 1;
+}
+
+.cardLine {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 48px;
+  border-radius: 0 var(--sf-radius) 0 4px;
+  background: var(--sf-primary);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}

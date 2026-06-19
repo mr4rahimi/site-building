@@ -17,7 +17,19 @@ export const Pages: CollectionConfig = {
   },
 
   hooks: {
-    beforeValidate: [({ req, data }) => enforceTenantSite(req, data)],
+    beforeValidate: [
+      ({ req, data }) => {
+        // Normalize slug: strip leading slash, lowercase, replace spaces with hyphens
+        if (data?.slug) {
+          data.slug = (data.slug as string)
+            .replace(/^\/+/, '')
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .trim()
+        }
+        return enforceTenantSite(req, data)
+      },
+    ],
   },
 
   fields: [
@@ -37,8 +49,13 @@ export const Pages: CollectionConfig = {
       type: 'text',
       required: true,
       index: true,
-      unique: true,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        description: 'بدون / اول — مثال: about یا services/repair',
+        components: {
+          Cell: '@/components/admin/SlugCell',
+        },
+      },
     },
 
     {

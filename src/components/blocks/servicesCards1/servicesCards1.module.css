@@ -1,0 +1,125 @@
+.section {
+  background: var(--sf-bg);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--sf-text);
+  letter-spacing: -0.02em;
+}
+
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sf-primary);
+  text-decoration: none;
+  transition: gap 150ms ease, opacity 150ms ease;
+}
+
+.moreLink:hover {
+  gap: 10px;
+  opacity: 0.8;
+}
+
+.moreLinkIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(2, 6, 23, 0.1);
+}
+
+.cardNum {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  color: color-mix(in srgb, var(--sf-primary) 12%, transparent);
+  user-select: none;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sf-text);
+  line-height: 1.4;
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--sf-text) 65%, transparent);
+  flex: 1;
+}
+
+.cardBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--sf-primary) 10%, transparent);
+  color: var(--sf-primary);
+  border: 1px solid color-mix(in srgb, var(--sf-primary) 25%, transparent);
+  transition: background 150ms ease, color 150ms ease;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.cardBtn:hover {
+  background: var(--sf-primary);
+  color: var(--sf-primary-foreground);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}

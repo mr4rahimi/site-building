@@ -1,0 +1,143 @@
+.section {
+  background: var(--sf-muted);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--sf-text);
+  letter-spacing: -0.02em;
+}
+
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sf-primary);
+  text-decoration: none;
+  transition: gap 150ms ease, opacity 150ms ease;
+}
+
+.moreLink:hover {
+  gap: 10px;
+  opacity: 0.8;
+}
+
+.moreLinkIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card {
+  text-decoration: none;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(2, 6, 23, 0.12);
+}
+
+.card:hover .accent {
+  width: 100%;
+}
+
+.card:hover .ctaIcon {
+  transform: translateY(3px);
+}
+
+.cardInner {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  position: relative;
+}
+
+.accent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 3px;
+  width: 48px;
+  background: var(--sf-primary);
+  border-radius: 0 var(--sf-radius) 0 0;
+  transition: width 300ms ease;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sf-text);
+  line-height: 1.4;
+  padding-top: 8px;
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--sf-text) 65%, transparent);
+  flex: 1;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sf-border);
+  margin-top: 4px;
+}
+
+.ctaLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sf-primary);
+}
+
+.ctaIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--sf-primary);
+  transition: transform 200ms ease;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}

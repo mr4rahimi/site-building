@@ -1,0 +1,132 @@
+.section {
+  background: var(--sf-bg);
+}
+
+.title {
+  margin: 0 0 40px;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--sf-text);
+  letter-spacing: -0.02em;
+  text-align: right;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 14px;
+}
+
+.dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sf-primary);
+  color: var(--sf-primary-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--sf-primary) 40%, transparent);
+  position: relative;
+  z-index: 1;
+}
+
+.line {
+  width: 2px;
+  flex: 1;
+  min-height: 24px;
+  background: linear-gradient(
+    to bottom,
+    var(--sf-primary) 0%,
+    color-mix(in srgb, var(--sf-primary) 20%, transparent) 100%
+  );
+  margin: 4px 0;
+}
+
+.card {
+  flex: 1;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.stepText {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sf-text);
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0 0;
+    position: relative;
+  }
+
+  .step {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .connector {
+    flex-direction: row;
+    padding-top: 0;
+    width: 100%;
+    align-items: center;
+  }
+
+  .dot {
+    flex-shrink: 0;
+  }
+
+  .line {
+    width: auto;
+    flex: 1;
+    height: 2px;
+    min-height: unset;
+    min-width: 16px;
+    background: linear-gradient(
+      to left,
+      var(--sf-primary) 0%,
+      color-mix(in srgb, var(--sf-primary) 20%, transparent) 100%
+    );
+    margin: 0 4px;
+  }
+
+  .step:last-child .line {
+    display: none;
+  }
+
+  .card {
+    margin-bottom: 0;
+    margin-top: 12px;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+}

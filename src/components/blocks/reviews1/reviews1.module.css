@@ -1,0 +1,150 @@
+.section {
+  background: var(--sf-muted);
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--sf-text);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--sf-text) 60%, transparent);
+  line-height: 1.6;
+}
+
+.trackWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sf-border) transparent;
+  padding-bottom: 12px;
+  margin: 0 -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.trackWrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.trackWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.trackWrapper::-webkit-scrollbar-thumb {
+  background: var(--sf-border);
+  border-radius: 2px;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+}
+
+.card {
+  width: 300px;
+  flex-shrink: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(2, 6, 23, 0.1);
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+  flex-direction: row-reverse;
+}
+
+.star {
+  width: 16px;
+  height: 16px;
+  color: #f59e0b;
+}
+
+.quote {
+  margin: 0;
+  flex: 1;
+}
+
+.reviewText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--sf-text) 75%, transparent);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--sf-border);
+  padding-top: 16px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--sf-primary);
+  color: var(--sf-primary-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sf-text);
+}
+
+.hint {
+  text-align: center;
+  margin: 20px 0 0;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--sf-text) 45%, transparent);
+}
+
+@media (min-width: 860px) {
+  .track {
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .card {
+    width: auto;
+  }
+
+  .trackWrapper {
+    overflow-x: visible;
+    margin: 0;
+    padding: 0;
+  }
+}

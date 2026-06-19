@@ -6,21 +6,22 @@ import { articleSchema } from '@/lib/schema'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const payload = await getPayloadClient()
 
   const result = await payload.find({
     collection: 'posts',
     limit: 1,
     where: {
-      slug: { equals: params.slug },
+      slug: { equals: slug },
     },
   })
 
   const post = result.docs?.[0]
   if (!post) return {}
 
-  const url = `${process.env.PUBLIC_SERVER_URL}/blog/${post.slug}`
+  const url = `${process.env.PUBLIC_SERVER_URL}/blog/${slug}`
 
   const img =
     post.featuredImage && typeof post.featuredImage === 'object' ? post.featuredImage : null
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   })
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const payload = await getPayloadClient()
   const now = new Date().toISOString()
 
@@ -44,7 +46,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
     depth: 2,
     limit: 1,
     where: {
-      and: [{ slug: { equals: params.slug } }, { publishedAt: { less_than_equal: now } }],
+      and: [{ slug: { equals: slug } }, { publishedAt: { less_than_equal: now } }],
     },
   })
 

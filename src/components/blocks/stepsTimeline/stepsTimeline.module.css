@@ -1,0 +1,100 @@
+.section {
+  background: var(--sf-bg);
+}
+
+.header {
+  margin-bottom: 48px;
+  text-align: right;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--sf-text);
+  letter-spacing: -0.025em;
+}
+
+.titleAccent {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sf-primary);
+  margin-top: 12px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 720px;
+}
+
+.item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 16px;
+}
+
+.circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sf-primary);
+  color: var(--sf-primary-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--sf-primary) 15%, transparent);
+}
+
+.track {
+  width: 2px;
+  flex: 1;
+  min-height: 32px;
+  background: linear-gradient(to bottom, var(--sf-primary), var(--sf-border));
+  margin: 6px 0;
+}
+
+.card {
+  flex: 1;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.stepTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sf-text);
+  line-height: 1.4;
+}
+
+.stepDesc {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--sf-text) 65%, transparent);
+}
+
+@media (min-width: 768px) {
+  .timeline {
+    max-width: 640px;
+  }
+}

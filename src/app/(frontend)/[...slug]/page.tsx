@@ -4,15 +4,39 @@ import RenderBlocks from '../_components/RenderBlocks'
 
 export const dynamic = 'force-dynamic'
 
-export default async function DynamicPage({ params }: { params: { slug?: string[] } }) {
+export default async function DynamicPage({ params }: { params: Promise<{ slug?: string[] }> }) {
+  const { slug: slugParts } = await params
   const payload = await getPayloadClient()
-  const slug = params.slug?.[params.slug.length - 1] ?? 'home'
 
+  // URL pattern: /{site-slug}/{page-slug}
+  // e.g. /asus/about  or  /asus (→ home)
+  const [siteSlug, ...rest] = slugParts || []
+  const pageSlug = rest.join('/') || 'home'
+
+  if (!siteSlug) return notFound()
+
+  // Find site by slug
+  const siteRes = await payload.find({
+    collection: 'sites',
+    limit: 1,
+    depth: 0,
+    where: { slug: { equals: siteSlug } },
+  })
+
+  const site = siteRes.docs?.[0]
+  if (!site) return notFound()
+
+  // Find page by slug scoped to this site
   const res = await payload.find({
     collection: 'pages',
     limit: 1,
     depth: 3,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: pageSlug } },
+        { site: { equals: site.id } },
+      ],
+    },
   })
 
   const page = res.docs?.[0]

@@ -18,8 +18,33 @@ export const Sites: CollectionConfig = {
     update: ({ req }) => (req.user as any)?.role === 'superadmin',
     delete: ({ req }) => (req.user as any)?.role === 'superadmin',
   },
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data && !data.slug && data.name) {
+          data.slug = (data.name as string)
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '')
+        }
+        return data
+      },
+    ],
+  },
+
   fields: [
     { name: 'name', type: 'text', required: true },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      index: true,
+      admin: {
+        position: 'sidebar',
+        description: 'شناسه URL سایت (مثال: asus-repair)',
+      },
+    },
     { name: 'primaryDomain', type: 'text', required: true },
     { name: 'isActive', type: 'checkbox', defaultValue: true },
     { name: 'logo', type: 'upload', relationTo: 'media' },

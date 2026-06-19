@@ -18,6 +18,17 @@ import IssuesBlock from './issues/Component'
 import IssuesAccordionBlock from './issuesAccordion/component'
 import LandingHeroImageBlock from './landingHeroImage/Component'
 import PricingTableBlock from './pricingTable/Component'
+import SimpleCTABlock from './simpleCTA/Component'
+import WhyUs1Block from './whyUs1/Component'
+import RepairSteps1Block from './repairSteps1/Component'
+import RepairSpecial1Block from './repairSpecial1/Component'
+import RepairSpecial2Block from './repairSpecial2/Component'
+import Reviews1Block from './reviews1/Component'
+import StepsTimelineBlock from './stepsTimeline/Component'
+import ServiceDetailSectionBlock from './serviceDetailSection/Component'
+import ServicesCards1Block from './servicesCards1/Component'
+import ServicesCards2Block from './servicesCards2/Component'
+import ServicesGridWithAnchorsBlock from './servicesGridWithAnchors/Component'
 
 export const blocks: Record<string, ComponentType<any>> = {
   cta: CTABlock,
@@ -38,4 +49,15 @@ export const blocks: Record<string, ComponentType<any>> = {
   issuesAccordion: IssuesAccordionBlock,
   landingHeroImage: LandingHeroImageBlock,
   pricingTable: PricingTableBlock,
+  simpleCTA: SimpleCTABlock,
+  whyUs1: WhyUs1Block,
+  repairSteps1: RepairSteps1Block,
+  repairSpecial1: RepairSpecial1Block,
+  repairSpecial2: RepairSpecial2Block,
+  reviews1: Reviews1Block,
+  stepsTimeline: StepsTimelineBlock,
+  serviceDetailSection: ServiceDetailSectionBlock,
+  servicesCards1: ServicesCards1Block,
+  servicesCards2: ServicesCards2Block,
+  servicesGridWithAnchors: ServicesGridWithAnchorsBlock,
 }

@@ -158,6 +158,10 @@ export interface User {
 export interface Site {
   id: number;
   name: string;
+  /**
+   * شناسه URL سایت (مثال: asus-repair)
+   */
+  slug: string;
   primaryDomain: string;
   isActive?: boolean | null;
   logo?: (number | null) | Media;
@@ -196,6 +200,9 @@ export interface Page {
   id: number;
   site: number | Site;
   title: string;
+  /**
+   * بدون / اول — مثال: about یا services/repair
+   */
   slug: string;
   pageType: 'home' | 'about' | 'contact';
   layout?:
@@ -2768,6 +2775,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface SitesSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   primaryDomain?: T;
   isActive?: T;
   logo?: T;
