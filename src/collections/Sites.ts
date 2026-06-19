@@ -2,9 +2,11 @@ import type { CollectionConfig } from 'payload'
 
 export const Sites: CollectionConfig = {
   slug: 'sites',
+  labels: { singular: 'سایت', plural: 'سایت‌ها' },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'primaryDomain', 'isActive'],
+    description: 'مدیریت سایت‌های ثبت‌شده در پلتفرم',
   },
   access: {
     read: ({ req }) => {
@@ -33,9 +35,10 @@ export const Sites: CollectionConfig = {
   },
 
   fields: [
-    { name: 'name', type: 'text', required: true },
+    { name: 'name', label: 'نام سایت', type: 'text', required: true },
     {
       name: 'slug',
+      label: 'شناسه URL',
       type: 'text',
       required: true,
       unique: true,
@@ -45,9 +48,9 @@ export const Sites: CollectionConfig = {
         description: 'شناسه URL سایت (مثال: asus-repair)',
       },
     },
-    { name: 'primaryDomain', type: 'text', required: true },
-    { name: 'isActive', type: 'checkbox', defaultValue: true },
-    { name: 'logo', type: 'upload', relationTo: 'media' },
-    { name: 'brandPrimary', type: 'text', defaultValue: '#111827' },
+    { name: 'primaryDomain', label: 'دامنه اصلی', type: 'text', required: true },
+    { name: 'isActive', label: 'فعال', type: 'checkbox', defaultValue: true },
+    { name: 'logo', label: 'لوگو', type: 'upload', relationTo: 'media' },
+    { name: 'brandPrimary', label: 'رنگ اصلی برند', type: 'text', defaultValue: '#111827' },
   ],
 }

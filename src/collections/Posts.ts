@@ -2,9 +2,11 @@ import type { CollectionConfig } from 'payload'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
+  labels: { singular: 'مقاله', plural: 'مقالات' },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'site', 'publishedAt', 'updatedAt'],
+    description: 'مقالات و پست‌های وبلاگ سایت‌ها',
   },
 
   access: {
@@ -21,9 +23,9 @@ export const Posts: CollectionConfig = {
   },
 
   fields: [
-    // site isolation
     {
       name: 'site',
+      label: 'سایت',
       type: 'relationship',
       relationTo: 'sites' as any,
       required: true,
@@ -31,11 +33,11 @@ export const Posts: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
 
-    // WordPress-like core
-    { name: 'title', type: 'text', required: true },
+    { name: 'title', label: 'عنوان مقاله', type: 'text', required: true },
 
     {
       name: 'slug',
+      label: 'آدرس (Slug)',
       type: 'text',
       required: true,
       index: true,

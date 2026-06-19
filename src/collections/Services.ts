@@ -4,9 +4,11 @@ import { COMMON_BLOCKS } from '../blocks'
 
 export const Services: CollectionConfig = {
   slug: 'services',
+  labels: { singular: 'خدمت', plural: 'خدمات' },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'site', 'updatedAt'],
+    description: 'صفحات خدمات سایت‌ها',
   },
 
   access: {
@@ -32,19 +34,23 @@ export const Services: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
 
-    { name: 'title', type: 'text', required: true },
+    { name: 'title', label: 'عنوان خدمت', type: 'text', required: true },
 
     {
       name: 'slug',
+      label: 'آدرس (Slug)',
       type: 'text',
       required: true,
       index: true,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        description: 'بدون / اول — مثال: laptop-repair',
+      },
     },
 
-    // Page Builder برای سرویس
     {
       name: 'sections',
+      label: 'بخش‌های صفحه',
       type: 'blocks',
       blocks: COMMON_BLOCKS,
       required: false,

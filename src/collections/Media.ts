@@ -2,9 +2,11 @@ import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  labels: { singular: 'رسانه', plural: 'رسانه‌ها' },
   admin: {
     useAsTitle: 'alt',
     defaultColumns: ['alt', 'mediaKind', 'updatedAt'],
+    description: 'تصاویر، ویدئوها و فایل‌های آپلود‌شده',
   },
 
   access: {
@@ -44,36 +46,39 @@ export const Media: CollectionConfig = {
 
 
 
-    { name: 'alt', type: 'text', required: true },
+    { name: 'alt', label: 'متن جایگزین (Alt)', type: 'text', required: true },
 
     {
       name: 'mediaKind',
+      label: 'نوع رسانه',
       type: 'select',
       required: true,
       defaultValue: 'upload',
       options: [
-        { label: 'Upload (Image/Video)', value: 'upload' },
-        { label: 'Aparat Embed', value: 'aparat' },
+        { label: 'آپلود (تصویر/ویدئو)', value: 'upload' },
+        { label: 'امبد آپارات', value: 'aparat' },
       ],
     },
 
-    // اگر آپارات بود، لینک/کد امبد
     {
       name: 'aparatUrl',
+      label: 'لینک آپارات',
       type: 'text',
       admin: {
         condition: (_, siblingData) => siblingData?.mediaKind === 'aparat',
         placeholder: 'https://www.aparat.com/v/XXXXXX',
+        description: 'آدرس مستقیم ویدئو در آپارات',
       },
     },
 
-    // اگر آپارات بود، اختیاری: کد iframe کامل
     {
       name: 'aparatIframe',
+      label: 'کد iframe آپارات',
       type: 'textarea',
       admin: {
         condition: (_, siblingData) => siblingData?.mediaKind === 'aparat',
         placeholder: '<iframe src="..."></iframe>',
+        description: 'کد کامل امبد که آپارات در اختیار می‌گذارد',
       },
     },
   ],

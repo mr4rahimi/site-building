@@ -8,8 +8,10 @@ function getUserSiteIDs(user: any): string[] {
 export const Users: CollectionConfig = {
   slug: 'users',
   auth: true,
+  labels: { singular: 'کاربر', plural: 'کاربران' },
   admin: {
     useAsTitle: 'email',
+    description: 'مدیریت کاربران و سطح دسترسی',
   },
 
   access: {
@@ -111,22 +113,25 @@ export const Users: CollectionConfig = {
   fields: [
     {
       name: 'role',
+      label: 'نقش',
       type: 'select',
       required: true,
       defaultValue: 'superadmin',
       options: [
-        { label: 'Super Admin', value: 'superadmin' },
-        { label: 'Site Admin', value: 'siteadmin' },
-        { label: 'Editor', value: 'editor' },
+        { label: 'سوپر ادمین', value: 'superadmin' },
+        { label: 'ادمین سایت', value: 'siteadmin' },
+        { label: 'ویرایشگر', value: 'editor' },
       ],
     },
     {
       name: 'sites',
+      label: 'سایت‌های مجاز',
       type: 'relationship',
       relationTo: 'sites' as any,
       hasMany: true,
       admin: {
         condition: (_, siblingData) => siblingData?.role !== 'superadmin',
+        description: 'سایت‌هایی که این کاربر به آن‌ها دسترسی دارد',
       },
     },
   ],

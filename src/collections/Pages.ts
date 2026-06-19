@@ -4,9 +4,11 @@ import { COMMON_BLOCKS } from '../blocks'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  labels: { singular: 'صفحه', plural: 'صفحات' },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'pageType', 'site', 'updatedAt'],
+    description: 'صفحات سایت‌ها را مدیریت کنید',
   },
 
   access: {
@@ -35,6 +37,7 @@ export const Pages: CollectionConfig = {
   fields: [
     {
       name: 'site',
+      label: 'سایت',
       type: 'relationship',
       relationTo: 'sites' as any,
       required: true,
@@ -42,16 +45,17 @@ export const Pages: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
 
-    { name: 'title', type: 'text', required: true },
+    { name: 'title', label: 'عنوان صفحه', type: 'text', required: true },
 
     {
       name: 'slug',
+      label: 'آدرس (Slug)',
       type: 'text',
       required: true,
       index: true,
       admin: {
         position: 'sidebar',
-        description: 'بدون / اول — مثال: about یا services/repair',
+        description: 'بدون / اول — مثال: about یا services',
         components: {
           Cell: '@/components/admin/SlugCell',
         },
@@ -60,12 +64,13 @@ export const Pages: CollectionConfig = {
 
     {
       name: 'pageType',
+      label: 'نوع صفحه',
       type: 'select',
       required: true,
       options: [
-        { label: 'Home', value: 'home' },
-        { label: 'About', value: 'about' },
-        { label: 'Contact', value: 'contact' },
+        { label: 'صفحه اصلی', value: 'home' },
+        { label: 'درباره ما', value: 'about' },
+        { label: 'تماس با ما', value: 'contact' },
       ],
       admin: { position: 'sidebar' },
     },

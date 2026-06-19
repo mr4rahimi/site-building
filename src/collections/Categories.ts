@@ -2,9 +2,11 @@ import type { CollectionConfig } from 'payload'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
+  labels: { singular: 'دسته‌بندی', plural: 'دسته‌بندی‌ها' },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'site', 'updatedAt'],
+    description: 'دسته‌بندی مقالات وبلاگ',
   },
 
   access: {
@@ -30,7 +32,7 @@ export const Categories: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
 
-    { name: 'title', type: 'text', required: true },
+    { name: 'title', label: 'عنوان', type: 'text', required: true },
 
     {
       name: 'slug',

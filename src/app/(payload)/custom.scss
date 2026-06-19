@@ -1,0 +1,62 @@
+// Persian font (Vazirmatn)
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+// Apply Persian font + RTL to the entire admin
+:root {
+  --font-body: 'Vazirmatn', 'Tahoma', 'Arial', system-ui, sans-serif;
+}
+
+html[dir='rtl'],
+html[dir='rtl'] body {
+  font-family: var(--font-body) !important;
+  direction: rtl;
+  text-align: right;
+}
+
+// LTR exceptions: code, inputs with dir=ltr, etc.
+html[dir='rtl'] code,
+html[dir='rtl'] pre,
+html[dir='rtl'] input[dir='ltr'],
+html[dir='rtl'] .payload__mono {
+  font-family: 'Roboto Mono', 'Cascadia Code', monospace !important;
+  direction: ltr;
+  text-align: left;
+}
+
+// Sidebar should be on the right in RTL
+html[dir='rtl'] .template-default__wrap {
+  flex-direction: row-reverse;
+}
+
+// Fix icon alignment in RTL
+html[dir='rtl'] .pill {
+  flex-direction: row-reverse;
+}
+
+// Table cells
+html[dir='rtl'] td,
+html[dir='rtl'] th {
+  text-align: right;
+}
+
+// Input fields
+html[dir='rtl'] input[type='text'],
+html[dir='rtl'] input[type='email'],
+html[dir='rtl'] input[type='password'],
+html[dir='rtl'] textarea,
+html[dir='rtl'] select {
+  font-family: var(--font-body) !important;
+  text-align: right;
+}
+
+// Make number inputs LTR
+html[dir='rtl'] input[type='number'] {
+  direction: ltr;
+  text-align: left;
+}
+
+// Rich text editor content
+html[dir='rtl'] .rich-text-lexical .editor-container {
+  direction: rtl;
+  font-family: var(--font-body) !important;
+}

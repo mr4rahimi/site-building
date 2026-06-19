@@ -1,6 +1,7 @@
 import path from 'path'
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { fa } from '@payloadcms/translations/languages/fa'
 import { Users } from './collections/Users'
 import { Sites } from './collections/Sites'
 import { Media } from './collections/Media'
@@ -47,8 +48,16 @@ export default buildConfig({
     },
   }),
 
+  i18n: {
+    fallbackLanguage: 'fa',
+    supportedLanguages: { fa },
+  },
+
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: '— پنل مدیریت',
+    },
   },
 
   editor: lexicalEditor({
