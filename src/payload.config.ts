@@ -9,6 +9,7 @@ import { Pages } from './collections/Pages'
 import { Services } from './collections/Services'
 import { Posts } from './collections/Posts'
 import { Categories } from './collections/Categories'
+import { SiteSettings } from './collections/SiteSettings'
 import { fileURLToPath } from 'url'
 
 import {
@@ -89,7 +90,7 @@ export default buildConfig({
     ],
   }),
 
-  collections: [Users, Sites, Media, Pages, Services, Posts, Categories],
+  collections: [Users, Sites, Media, Pages, Services, Posts, Categories, SiteSettings],
 
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
