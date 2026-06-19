@@ -1,0 +1,14 @@
+---
+// Uses AllBlocks React component with client:load so that:
+// - All blocks are server-rendered (good SEO, fast FCP)
+// - Interactive blocks (FAQ accordion, contact form, ...) are hydrated on client
+import AllBlocks from './AllBlocks'
+
+interface Props {
+  layout?: any[]
+  siteSlug?: string
+}
+const { layout, siteSlug } = Astro.props
+---
+
+<AllBlocks layout={layout} siteSlug={siteSlug} client:load />

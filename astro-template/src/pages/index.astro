@@ -1,0 +1,17 @@
+---
+// Home page → fetches the 'home' slug page
+import { getSiteData, getPage } from '../lib/api'
+import SiteLayout from '../layouts/SiteLayout.astro'
+import RenderBlocks from '../components/blocks/RenderBlocks.astro'
+import { SITE_SLUG } from '../lib/api'
+
+const { site, settings } = await getSiteData()
+const page = await getPage(site.id, 'home')
+---
+
+<SiteLayout siteSlug={SITE_SLUG} settings={settings} pageTitle={page?.title}>
+  {page
+    ? <RenderBlocks layout={page.layout} siteSlug={SITE_SLUG} />
+    : <div style="padding:80px 20px; text-align:center; font-size:1.5rem;">صفحه اصلی هنوز ساخته نشده است.</div>
+  }
+</SiteLayout>

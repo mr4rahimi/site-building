@@ -1,0 +1,89 @@
+---
+import Header from '../components/site/Header.astro'
+import Footer from '../components/site/Footer.astro'
+import FloatingContact from '../components/site/FloatingContact'
+import { mediaUrl } from '../lib/api'
+import '../styles/globals.css'
+
+interface Props {
+  siteSlug: string
+  siteTitle?: string
+  settings: any
+  pageTitle?: string
+  pageDescription?: string
+  ogImage?: string | null
+}
+
+const { siteSlug, settings, pageTitle, pageDescription, ogImage } = Astro.props
+
+const siteTitle = settings?.siteTitle || Astro.props.siteTitle || siteSlug
+const description = pageDescription || settings?.seo?.defaultMetaDescription || settings?.general?.description || ''
+const faviconUrl = mediaUrl(settings?.general?.favicon)
+const ogImg = ogImage || mediaUrl(settings?.seo?.defaultOgImage)
+const gaId = settings?.seo?.googleAnalyticsId
+const gscMeta = settings?.seo?.googleSearchConsole
+
+const titleTemplate = (settings?.seo?.metaTitleTemplate || '%s | {{title}}')
+  .replace('{{siteTitle}}', siteTitle).replace('{{title}}', siteTitle)
+const fullTitle = pageTitle ? titleTemplate.replace('%s', pageTitle) : siteTitle
+
+// Header data
+const navLinks = settings?.header?.navLinks || []
+const ctaButton = settings?.header?.ctaButton || null
+const phones: any[] = settings?.contact?.phones || []
+const primaryPhone = phones[0]?.number || null
+const whatsapp = settings?.social?.whatsapp || phones.find((p: any) => p.isWhatsApp)?.number || null
+
+const logoUrl = mediaUrl(settings?.general?.logo)
+---
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    {faviconUrl && <link rel="icon" href={faviconUrl} />}
+    {gscMeta && <meta name="google-site-verification" content={gscMeta} />}
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:site_name" content={siteTitle} />
+    {ogImg && <meta property="og:image" content={ogImg} />}
+
+    <!-- Google Analytics -->
+    {gaId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || []
+          function gtag(){dataLayer.push(arguments)}
+          gtag('js', new Date())
+          gtag('config', gaId)
+        </script>
+      </>
+    )}
+  </head>
+
+  <body>
+    <Header
+      siteSlug={siteSlug}
+      siteTitle={siteTitle}
+      logoUrl={logoUrl}
+      navLinks={navLinks}
+      ctaButton={ctaButton}
+      primaryPhone={primaryPhone}
+    />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer siteTitle={siteTitle} logoUrl={logoUrl} settings={settings} />
+
+    <FloatingContact client:idle primaryPhone={primaryPhone} whatsapp={whatsapp} />
+  </body>
+</html>

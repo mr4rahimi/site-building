@@ -1,0 +1,24 @@
+---
+import { getSiteData, getAllPages, getPage } from '../lib/api'
+import SiteLayout from '../layouts/SiteLayout.astro'
+import RenderBlocks from '../components/blocks/RenderBlocks.astro'
+import { SITE_SLUG } from '../lib/api'
+
+export async function getStaticPaths() {
+  const { site } = await getSiteData()
+  const pages = await getAllPages(site.id)
+
+  return pages
+    .filter((p: any) => p.slug && p.slug !== 'home')
+    .map((p: any) => ({ params: { slug: p.slug } }))
+}
+
+const { slug } = Astro.params
+const { site, settings } = await getSiteData()
+const page = await getPage(site.id, slug!)
+if (!page) return Astro.redirect('/404')
+---
+
+<SiteLayout siteSlug={SITE_SLUG} settings={settings} pageTitle={page.title}>
+  <RenderBlocks layout={page.layout} siteSlug={SITE_SLUG} />
+</SiteLayout>

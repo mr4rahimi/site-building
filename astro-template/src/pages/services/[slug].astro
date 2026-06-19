@@ -1,0 +1,30 @@
+---
+import { getSiteData, getAllServices, getService } from '../../lib/api'
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import RenderBlocks from '../../components/blocks/RenderBlocks.astro'
+import { SITE_SLUG } from '../../lib/api'
+
+export async function getStaticPaths() {
+  const { site } = await getSiteData()
+  const services = await getAllServices(site.id)
+  return services.map((s: any) => ({ params: { slug: s.slug } }))
+}
+
+const { slug } = Astro.params
+const { site, settings } = await getSiteData()
+const service = await getService(site.id, slug!)
+if (!service) return Astro.redirect('/')
+---
+
+<SiteLayout siteSlug={SITE_SLUG} settings={settings} pageTitle={service.title}>
+  {service.sections?.length > 0
+    ? <RenderBlocks layout={service.sections} siteSlug={SITE_SLUG} />
+    : (
+      <section class="sf-section" dir="rtl" style="text-align:center">
+        <div class="sf-container">
+          <h1 style="font-size:2rem; font-weight:700;">{service.title}</h1>
+        </div>
+      </section>
+    )
+  }
+</SiteLayout>

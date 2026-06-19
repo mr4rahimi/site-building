@@ -1,0 +1,148 @@
+---
+import { mediaUrl } from '../../lib/api'
+
+interface NavLink { label: string; href: string; isButton?: boolean; openInNewTab?: boolean }
+interface Props {
+  siteSlug: string
+  siteTitle: string
+  logoUrl: string | null
+  navLinks: NavLink[]
+  ctaButton: { label?: string; href?: string } | null
+  primaryPhone: string | null
+}
+
+const { siteSlug, siteTitle, logoUrl, navLinks, ctaButton, primaryPhone } = Astro.props
+---
+
+<header class="sf-header" id="sf-header">
+  <div class="sf-container sf-header__inner">
+    <!-- Logo -->
+    <a href="/" class="sf-header__logo" aria-label={siteTitle}>
+      {logoUrl
+        ? <img src={logoUrl} alt={siteTitle} width="140" height="48" class="sf-header__logo-img" />
+        : <span class="sf-header__logo-text">{siteTitle}</span>
+      }
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="sf-header__nav" aria-label="منوی اصلی">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={link.isButton ? 'sf-header__nav-btn' : 'sf-header__nav-link'}
+          target={link.openInNewTab ? '_blank' : undefined}
+          rel={link.openInNewTab ? 'noreferrer' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Actions -->
+    <div class="sf-header__actions">
+      {primaryPhone && (
+        <a href={`tel:${primaryPhone.replace(/\D/g, '')}`} class="sf-header__phone" dir="ltr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.6 4.92a2 2 0 0 1 1.95-2H6.5a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.85-.85a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <span>{primaryPhone}</span>
+        </a>
+      )}
+      {ctaButton?.href && ctaButton?.label && (
+        <a href={ctaButton.href} class="sf-header__cta">{ctaButton.label}</a>
+      )}
+    </div>
+
+    <!-- Mobile toggle -->
+    <button class="sf-header__toggle" id="sf-menu-btn" aria-label="باز کردن منو" aria-expanded="false" aria-controls="sf-mobile-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="sf-menu-icon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="sf-close-icon" style="display:none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="sf-header__mobile" id="sf-mobile-menu" aria-hidden="true">
+    <div class="sf-container sf-header__mobile-inner">
+      {navLinks.map(link => (
+        <a href={link.href} class="sf-header__mobile-link">{link.label}</a>
+      ))}
+      {primaryPhone && (
+        <a href={`tel:${primaryPhone.replace(/\D/g, '')}`} class="sf-header__mobile-phone" dir="ltr">
+          {primaryPhone}
+        </a>
+      )}
+      {ctaButton?.href && ctaButton?.label && (
+        <a href={ctaButton.href} class="sf-header__mobile-cta">{ctaButton.label}</a>
+      )}
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('sf-header')!
+  const btn = document.getElementById('sf-menu-btn')!
+  const menu = document.getElementById('sf-mobile-menu')!
+  const menuIcon = document.getElementById('sf-menu-icon')!
+  const closeIcon = document.getElementById('sf-close-icon')!
+
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('sf-header--scrolled', window.scrollY > 10)
+  }, { passive: true })
+
+  btn.addEventListener('click', () => {
+    const open = menu.getAttribute('aria-hidden') === 'true'
+    menu.setAttribute('aria-hidden', String(!open))
+    btn.setAttribute('aria-expanded', String(open))
+    btn.setAttribute('aria-label', open ? 'بستن منو' : 'باز کردن منو')
+    menu.style.maxHeight = open ? '600px' : '0'
+    menuIcon.style.display = open ? 'none' : 'block'
+    closeIcon.style.display = open ? 'block' : 'none'
+  })
+</script>
+
+<style>
+.sf-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: var(--sf-header-h);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sf-header--scrolled {
+  border-color: var(--sf-border);
+  box-shadow: 0 2px 16px rgba(2,6,23,0.06);
+}
+.sf-header__inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 24px;
+}
+.sf-header__logo { flex-shrink:0; display:flex; align-items:center; }
+.sf-header__logo-img { height:44px; width:auto; object-fit:contain; }
+.sf-header__logo-text { font-size:1.2rem; font-weight:700; color:var(--sf-primary); white-space:nowrap; }
+.sf-header__nav { display:flex; align-items:center; gap:4px; flex:1; justify-content:center; }
+.sf-header__nav-link { padding:6px 14px; font-size:.95rem; font-weight:500; color:var(--sf-text); border-radius:8px; transition:color .15s,background .15s; white-space:nowrap; }
+.sf-header__nav-link:hover { color:var(--sf-primary); background:rgba(37,99,235,.06); }
+.sf-header__nav-btn { padding:6px 16px; font-size:.95rem; font-weight:600; color:var(--sf-primary); border:1.5px solid var(--sf-primary); border-radius:8px; transition:background .15s,color .15s; white-space:nowrap; }
+.sf-header__nav-btn:hover { background:var(--sf-primary); color:#fff; }
+.sf-header__actions { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.sf-header__phone { display:flex; align-items:center; gap:6px; padding:7px 14px; font-size:.9rem; font-weight:600; color:var(--sf-text); background:var(--sf-muted); border-radius:8px; transition:background .15s; white-space:nowrap; }
+.sf-header__phone:hover { background:#e2e8f0; }
+.sf-header__cta { display:inline-flex; align-items:center; padding:8px 20px; font-size:.95rem; font-weight:700; color:#fff; background:var(--sf-primary); border-radius:10px; transition:background .15s; white-space:nowrap; }
+.sf-header__cta:hover { background:var(--sf-primary-dark); }
+.sf-header__toggle { display:none; background:none; border:none; cursor:pointer; padding:6px; color:var(--sf-text); border-radius:8px; margin-inline-end:auto; }
+.sf-header__mobile { display:none; background:#fff; border-top:1px solid var(--sf-border); box-shadow:0 8px 24px rgba(2,6,23,.08); max-height:0; overflow:hidden; transition:max-height .3s ease; }
+.sf-header__mobile-inner { display:flex; flex-direction:column; gap:4px; padding:12px 0 20px; }
+.sf-header__mobile-link { padding:12px 8px; font-size:1rem; font-weight:500; color:var(--sf-text); border-bottom:1px solid var(--sf-border); }
+.sf-header__mobile-phone { padding:12px 8px; font-size:1rem; font-weight:600; }
+.sf-header__mobile-cta { display:block; margin-top:12px; padding:14px; text-align:center; font-size:1rem; font-weight:700; color:#fff; background:var(--sf-primary); border-radius:12px; }
+@media (max-width: 768px) {
+  .sf-header__nav, .sf-header__actions { display:none; }
+  .sf-header__toggle { display:flex; }
+  .sf-header__mobile { display:block; }
+}
+</style>

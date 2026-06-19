@@ -1,0 +1,120 @@
+---
+import { getSiteData, getAllPosts, getPost, mediaUrl } from '../../lib/api'
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import { SITE_SLUG } from '../../lib/api'
+
+export async function getStaticPaths() {
+  const { site } = await getSiteData()
+  const posts = await getAllPosts(site.id)
+  return posts.map((p: any) => ({ params: { slug: p.slug } }))
+}
+
+const { slug } = Astro.params
+const { site, settings } = await getSiteData()
+const post = await getPost(site.id, slug!)
+if (!post) return Astro.redirect('/blog')
+
+const imgSrc = post.featuredImage ? mediaUrl(post.featuredImage) : null
+const date = post.publishedAt
+  ? new Intl.DateTimeFormat('fa-IR', { year:'numeric', month:'long', day:'numeric' }).format(new Date(post.publishedAt))
+  : null
+
+function renderLexical(content: any): string {
+  if (!content || !content.root) return ''
+  return renderNodes(content.root.children || [])
+}
+
+function renderNodes(nodes: any[]): string {
+  return nodes.map(renderNode).join('')
+}
+
+function renderNode(node: any): string {
+  if (!node) return ''
+  if (node.type === 'text') {
+    let t = node.text || ''
+    if (node.format & 1) t = `<strong>${t}</strong>`
+    if (node.format & 2) t = `<em>${t}</em>`
+    if (node.format & 8) t = `<u>${t}</u>`
+    if (node.format & 16) t = `<s>${t}</s>`
+    if (node.format & 32) t = `<code>${t}</code>`
+    return t
+  }
+  const ch = renderNodes(node.children || [])
+  switch (node.type) {
+    case 'paragraph': return `<p>${ch}</p>`
+    case 'heading': return `<h${node.tag}>${ch}</h${node.tag}>`
+    case 'list': return node.listType === 'number' ? `<ol>${ch}</ol>` : `<ul>${ch}</ul>`
+    case 'listitem': return `<li>${ch}</li>`
+    case 'quote': return `<blockquote>${ch}</blockquote>`
+    case 'horizontalrule': return `<hr />`
+    case 'link': return `<a href="${node.fields?.url || '#'}" ${node.fields?.newTab ? 'target="_blank" rel="noreferrer"' : ''}>${ch}</a>`
+    case 'upload': {
+      const url = node.value?.url || (node.value?.filename ? `/api/media/file/${node.value.filename}` : null)
+      return url ? `<figure><img src="${url}" alt="${node.value?.alt || ''}" loading="lazy" /></figure>` : ''
+    }
+    default: return ch
+  }
+}
+
+const htmlContent = renderLexical(post.content)
+---
+
+<SiteLayout siteSlug={SITE_SLUG} settings={settings} pageTitle={post.title} pageDescription={post.excerpt}>
+  <article class="post" dir="rtl">
+    <div class="sf-container">
+      <header class="post__header">
+        {Array.isArray(post.categories) && post.categories.length > 0 && (
+          <div class="post__cats">
+            {post.categories.map((c: any) => (
+              <span class="post__cat">{typeof c === 'string' ? c : c.title || c.slug}</span>
+            ))}
+          </div>
+        )}
+        <h1 class="post__title">{post.title}</h1>
+        {date && <time class="post__date" datetime={post.publishedAt}>{date}</time>}
+      </header>
+
+      {imgSrc && (
+        <div class="post__hero-img">
+          <img src={imgSrc} alt={post.featuredImage?.alt || post.title} />
+        </div>
+      )}
+
+      <div class="post__content rich-content" set:html={htmlContent} />
+
+      <footer class="post__footer">
+        <a href="/blog" class="post__back">← بازگشت به وبلاگ</a>
+      </footer>
+    </div>
+  </article>
+</SiteLayout>
+
+<style>
+.post { padding:56px 0 80px; }
+.post__header { max-width:760px; margin:0 auto 40px; text-align:center; }
+.post__cats { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:16px; }
+.post__cat { padding:4px 12px; background:rgba(37,99,235,.08); color:var(--sf-primary); font-size:.85rem; font-weight:600; border-radius:20px; }
+.post__title { font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.3; color:var(--sf-text); margin-bottom:16px; }
+.post__date { color:var(--sf-text-muted); font-size:.95rem; }
+.post__hero-img { max-width:900px; margin:0 auto 40px; border-radius:var(--sf-radius); overflow:hidden; }
+.post__hero-img img { width:100%; aspect-ratio:16/9; object-fit:cover; }
+.post__content { max-width:760px; margin:0 auto; }
+.post__footer { max-width:760px; margin:48px auto 0; padding-top:24px; border-top:1px solid var(--sf-border); }
+.post__back { color:var(--sf-primary); font-weight:600; }
+
+/* Rich content styles */
+:global(.rich-content p) { margin-bottom:1.2em; line-height:1.9; }
+:global(.rich-content h1,.rich-content h2,.rich-content h3,.rich-content h4) { font-weight:700; margin:1.8em 0 .6em; line-height:1.3; }
+:global(.rich-content h2) { font-size:1.6rem; }
+:global(.rich-content h3) { font-size:1.3rem; }
+:global(.rich-content ul,.rich-content ol) { padding-right:1.5em; margin-bottom:1.2em; }
+:global(.rich-content li) { margin-bottom:.5em; line-height:1.8; }
+:global(.rich-content blockquote) { border-right:4px solid var(--sf-primary); padding:.8em 1.2em; background:var(--sf-muted); border-radius:0 8px 8px 0; margin:1.5em 0; font-style:italic; color:var(--sf-text-muted); }
+:global(.rich-content code) { background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:.9em; font-family:monospace; }
+:global(.rich-content strong) { font-weight:700; }
+:global(.rich-content em) { font-style:italic; }
+:global(.rich-content a) { color:var(--sf-primary); text-decoration:underline; text-underline-offset:3px; }
+:global(.rich-content figure) { margin:1.5em 0; }
+:global(.rich-content figure img) { width:100%; border-radius:8px; }
+:global(.rich-content hr) { border:none; border-top:1px solid var(--sf-border); margin:2em 0; }
+</style>

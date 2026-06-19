@@ -1,0 +1,126 @@
+---
+interface Props {
+  siteTitle: string
+  logoUrl: string | null
+  settings: any
+}
+
+const { siteTitle, logoUrl, settings } = Astro.props
+const contact = settings?.contact || {}
+const social = settings?.social || {}
+const footer = settings?.footer || {}
+const general = settings?.general || {}
+const phones: any[] = contact.phones || []
+const footerLinks: any[] = footer.footerLinks || []
+
+const year = new Intl.DateTimeFormat('fa-IR', { calendar: 'persian', year: 'numeric' }).format(new Date())
+
+const socialLinks = [
+  { href: social.instagram, label: 'اینستاگرام', icon: 'instagram' },
+  { href: social.telegram, label: 'تلگرام', icon: 'telegram' },
+  { href: social.linkedin, label: 'لینکدین', icon: 'linkedin' },
+  { href: social.youtube, label: 'یوتیوب', icon: 'youtube' },
+  { href: social.twitter, label: 'توییتر', icon: 'twitter' },
+  { href: social.aparat, label: 'آپارات', icon: 'link' },
+].filter(s => s.href)
+---
+
+<footer class="sf-footer">
+  <div class="sf-container sf-footer__grid">
+
+    <!-- Brand -->
+    <div class="sf-footer__brand">
+      {logoUrl
+        ? <a href="/"><img src={logoUrl} alt={siteTitle} width="130" height="44" class="sf-footer__logo" /></a>
+        : <a href="/" class="sf-footer__brand-name">{siteTitle}</a>
+      }
+      {(footer.aboutText || general.description) &&
+        <p class="sf-footer__about">{footer.aboutText || general.description}</p>
+      }
+      {socialLinks.length > 0 && (
+        <div class="sf-footer__socials">
+          {socialLinks.map(s => (
+            <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label} class="sf-footer__social">
+              {s.label[0]}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- Quick links -->
+    {footerLinks.length > 0 && (
+      <div class="sf-footer__col">
+        <h3 class="sf-footer__col-title">دسترسی سریع</h3>
+        <ul class="sf-footer__links">
+          {footerLinks.map((link: any) => (
+            <li><a href={link.href} class="sf-footer__link">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- Contact -->
+    {(phones.length > 0 || contact.email || contact.address) && (
+      <div class="sf-footer__col">
+        <h3 class="sf-footer__col-title">تماس با ما</h3>
+        <ul class="sf-footer__contact">
+          {phones.map((ph: any) => (
+            <li class="sf-footer__contact-item">
+              <a href={`tel:${ph.number?.replace(/\D/g,'')}`} dir="ltr" class="sf-footer__contact-link">
+                {ph.number}{ph.label && <span class="sf-footer__phone-label"> ({ph.label})</span>}
+              </a>
+            </li>
+          ))}
+          {contact.email && (
+            <li class="sf-footer__contact-item">
+              <a href={`mailto:${contact.email}`} class="sf-footer__contact-link">{contact.email}</a>
+            </li>
+          )}
+          {contact.workingHours && <li class="sf-footer__contact-item">{contact.workingHours}</li>}
+          {contact.address && <li class="sf-footer__contact-item">{contact.address}</li>}
+        </ul>
+      </div>
+    )}
+  </div>
+
+  <div class="sf-footer__bottom">
+    <div class="sf-container sf-footer__bottom-inner">
+      <span>{footer.copyright || `© ${year} ${siteTitle} — تمامی حقوق محفوظ است.`}</span>
+      <span class="sf-footer__powered">طراحی با سایت‌ساز</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.sf-footer { background:#0f172a; color:#cbd5e1; font-size:.92rem; padding-top:56px; }
+.sf-footer__grid { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.08); }
+.sf-footer__brand { display:flex; flex-direction:column; gap:16px; }
+.sf-footer__logo { height:44px; width:auto; object-fit:contain; filter:brightness(0) invert(1); opacity:.9; }
+.sf-footer__brand-name { font-size:1.3rem; font-weight:700; color:#fff; }
+.sf-footer__about { color:#94a3b8; line-height:1.8; max-width:320px; }
+.sf-footer__socials { display:flex; gap:10px; flex-wrap:wrap; }
+.sf-footer__social { display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px; background:rgba(255,255,255,.06); color:#94a3b8; font-size:.75rem; font-weight:700; transition:background .15s,color .15s; }
+.sf-footer__social:hover { background:var(--sf-primary); color:#fff; }
+.sf-footer__col { display:flex; flex-direction:column; gap:16px; }
+.sf-footer__col-title { font-size:1rem; font-weight:700; color:#fff; }
+.sf-footer__links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.sf-footer__link { color:#94a3b8; transition:color .15s; }
+.sf-footer__link:hover { color:#fff; }
+.sf-footer__contact { list-style:none; display:flex; flex-direction:column; gap:12px; }
+.sf-footer__contact-item { color:#94a3b8; line-height:1.5; }
+.sf-footer__contact-link { color:#94a3b8; transition:color .15s; }
+.sf-footer__contact-link:hover { color:#fff; }
+.sf-footer__phone-label { color:#64748b; font-size:.85rem; }
+.sf-footer__bottom { padding:18px 0; border-top:1px solid rgba(255,255,255,.05); }
+.sf-footer__bottom-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; color:#475569; font-size:.85rem; }
+.sf-footer__powered { color:#334155; }
+@media (max-width: 900px) {
+  .sf-footer__grid { grid-template-columns:1fr 1fr; gap:32px; }
+  .sf-footer__brand { grid-column:1/-1; }
+}
+@media (max-width: 600px) {
+  .sf-footer__grid { grid-template-columns:1fr; }
+  .sf-footer__bottom-inner { flex-direction:column; text-align:center; }
+}
+</style>
