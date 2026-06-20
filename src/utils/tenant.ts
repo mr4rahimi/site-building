@@ -8,7 +8,7 @@ export function getUserSiteIDs(user: any): string[] {
 
 export function tenantReadAccess({ req }: { req: any }): boolean | Where {
   const user = req.user as any
-  if (!user) return false
+  if (!user) return true  // public read for Astro static builds
   if (user.role === 'superadmin') return true
 
   const siteIDs = getUserSiteIDs(user)

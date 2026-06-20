@@ -12,7 +12,7 @@ export const Posts: CollectionConfig = {
   access: {
     read: ({ req }) => {
       const user = req.user as any
-      if (!user) return false
+      if (!user) return true  // public read for Astro static builds
       if (user.role === 'superadmin') return true
       const siteIDs = user.sites?.map((s: any) => (typeof s === 'string' ? s : s.id)) || []
       return { site: { in: siteIDs } }

@@ -75,6 +75,7 @@ export interface Config {
     posts: Post;
     categories: Category;
     'site-settings': SiteSetting;
+    'contact-submissions': ContactSubmission;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +91,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -1416,6 +1418,17 @@ export interface Page {
             blockName?: string | null;
             blockType: 'faqAccordion';
           }
+        | {
+            title?: string | null;
+            description?: string | null;
+            fields?: ('name' | 'phone' | 'email' | 'subject' | 'message')[] | null;
+            submitLabel?: string | null;
+            successMessage?: string | null;
+            siteId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -2627,6 +2640,17 @@ export interface Service {
             blockName?: string | null;
             blockType: 'faqAccordion';
           }
+        | {
+            title?: string | null;
+            description?: string | null;
+            fields?: ('name' | 'phone' | 'email' | 'subject' | 'message')[] | null;
+            submitLabel?: string | null;
+            successMessage?: string | null;
+            siteId?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -2780,6 +2804,24 @@ export interface SiteSetting {
   createdAt: string;
 }
 /**
+ * پیام‌های دریافتی از فرم‌های تماس سایت‌ها
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: number;
+  site: number | Site;
+  name: string;
+  phone?: string | null;
+  email?: string | null;
+  subject?: string | null;
+  message: string;
+  status?: ('new' | 'read' | 'replied') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -2834,6 +2876,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'site-settings';
         value: number | SiteSetting;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: number | ContactSubmission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -3840,6 +3886,18 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        contactForm?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              fields?: T;
+              submitLabel?: T;
+              successMessage?: T;
+              siteId?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -4746,6 +4804,18 @@ export interface ServicesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        contactForm?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              fields?: T;
+              submitLabel?: T;
+              successMessage?: T;
+              siteId?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -4861,6 +4931,21 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         googleAnalyticsId?: T;
         googleSearchConsole?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  site?: T;
+  name?: T;
+  phone?: T;
+  email?: T;
+  subject?: T;
+  message?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
