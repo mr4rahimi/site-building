@@ -1,11 +1,87 @@
-// Persian font (Vazirmatn)
+// ─────────────────────────────────────────────────────────────────────────────
+// FONT
+// ─────────────────────────────────────────────────────────────────────────────
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
 
-// Apply Persian font + RTL to the entire admin
 :root {
-  --font-body: 'Vazirmatn', 'Tahoma', 'Arial', system-ui, sans-serif;
+  --font-body: 'Vazirmatn', 'Tahoma', system-ui, sans-serif;
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ACCENT COLOR — Indigo/Violet  (replaces default teal)
+// Both --color-blue-* and --color-success-* must be overridden because
+// Payload maps them identically and uses --theme-success-* for links/active.
+// ─────────────────────────────────────────────────────────────────────────────
+:root {
+  --color-blue-50:  rgb(245, 243, 255);
+  --color-blue-100: rgb(237, 233, 254);
+  --color-blue-150: rgb(221, 214, 254);
+  --color-blue-200: rgb(196, 181, 253);
+  --color-blue-250: rgb(167, 139, 250);
+  --color-blue-300: rgb(139,  92, 246);
+  --color-blue-350: rgb(124,  58, 237);
+  --color-blue-400: rgb(109,  40, 217);
+  --color-blue-450: rgb( 91,  33, 182);
+  --color-blue-500: rgb( 79,  70, 229);
+  --color-blue-550: rgb( 67,  56, 202);
+  --color-blue-600: rgb( 55,  48, 163);
+  --color-blue-650: rgb( 49,  46, 129);
+  --color-blue-700: rgb( 40,  38, 100);
+  --color-blue-750: rgb( 30,  28,  78);
+  --color-blue-800: rgb( 22,  20,  58);
+  --color-blue-850: rgb( 16,  14,  45);
+  --color-blue-900: rgb( 12,  10,  32);
+  --color-blue-950: rgb(  8,   6,  22);
+
+  --color-success-50:  rgb(245, 243, 255);
+  --color-success-100: rgb(237, 233, 254);
+  --color-success-150: rgb(221, 214, 254);
+  --color-success-200: rgb(196, 181, 253);
+  --color-success-250: rgb(167, 139, 250);
+  --color-success-300: rgb(139,  92, 246);
+  --color-success-350: rgb(124,  58, 237);
+  --color-success-400: rgb(109,  40, 217);
+  --color-success-450: rgb( 91,  33, 182);
+  --color-success-500: rgb( 79,  70, 229);
+  --color-success-550: rgb( 67,  56, 202);
+  --color-success-600: rgb( 55,  48, 163);
+  --color-success-650: rgb( 49,  46, 129);
+  --color-success-700: rgb( 40,  38, 100);
+  --color-success-750: rgb( 30,  28,  78);
+  --color-success-800: rgb( 22,  20,  58);
+  --color-success-850: rgb( 16,  14,  45);
+  --color-success-900: rgb( 12,  10,  32);
+  --color-success-950: rgb(  8,   6,  22);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DARK THEME — Rich slate-navy palette
+// ─────────────────────────────────────────────────────────────────────────────
+html[data-theme='dark'] {
+  --color-base-900: rgb(  8,   9,  18);
+  --color-base-850: rgb( 13,  14,  26);
+  --color-base-800: rgb( 19,  20,  36);
+  --color-base-750: rgb( 27,  28,  46);
+  --color-base-700: rgb( 37,  38,  58);
+  --color-base-650: rgb( 50,  51,  72);
+  --color-base-600: rgb( 66,  67,  90);
+  --color-base-550: rgb( 84,  85, 110);
+  --color-base-500: rgb(100, 101, 128);
+  --color-base-450: rgb(118, 119, 148);
+  --color-base-400: rgb(134, 135, 165);
+  --color-base-350: rgb(152, 153, 183);
+  --color-base-300: rgb(170, 171, 200);
+  --color-base-250: rgb(188, 189, 215);
+  --color-base-200: rgb(205, 206, 228);
+  --color-base-150: rgb(218, 219, 238);
+  --color-base-100: rgb(230, 231, 246);
+  --color-base-50:  rgb(240, 241, 252);
+  --color-base-0:   rgb(248, 249, 255);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RTL + FONT
+// ─────────────────────────────────────────────────────────────────────────────
 html[dir='rtl'],
 html[dir='rtl'] body {
   font-family: var(--font-body) !important;
@@ -13,33 +89,19 @@ html[dir='rtl'] body {
   text-align: right;
 }
 
-// LTR exceptions: code, inputs with dir=ltr, etc.
 html[dir='rtl'] code,
 html[dir='rtl'] pre,
-html[dir='rtl'] input[dir='ltr'],
 html[dir='rtl'] .payload__mono {
   font-family: 'Roboto Mono', 'Cascadia Code', monospace !important;
   direction: ltr;
   text-align: left;
 }
 
-// Sidebar should be on the right in RTL
-html[dir='rtl'] .template-default__wrap {
-  flex-direction: row-reverse;
+html[dir='rtl'] input[type='number'] {
+  direction: ltr;
+  text-align: left;
 }
 
-// Fix icon alignment in RTL
-html[dir='rtl'] .pill {
-  flex-direction: row-reverse;
-}
-
-// Table cells
-html[dir='rtl'] td,
-html[dir='rtl'] th {
-  text-align: right;
-}
-
-// Input fields
 html[dir='rtl'] input[type='text'],
 html[dir='rtl'] input[type='email'],
 html[dir='rtl'] input[type='password'],
@@ -49,14 +111,271 @@ html[dir='rtl'] select {
   text-align: right;
 }
 
-// Make number inputs LTR
-html[dir='rtl'] input[type='number'] {
-  direction: ltr;
-  text-align: left;
+html[dir='rtl'] td,
+html[dir='rtl'] th {
+  text-align: right;
 }
 
-// Rich text editor content
 html[dir='rtl'] .rich-text-lexical .editor-container {
   direction: rtl;
   font-family: var(--font-body) !important;
+}
+
+html[dir='rtl'] .pill {
+  flex-direction: row-reverse;
+}
+
+// RTL: sidebar on the right
+html[dir='rtl'] .template-default__wrap {
+  flex-direction: row-reverse;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SIDEBAR NAVIGATION
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Sidebar background — subtle gradient
+.nav {
+  html[data-theme='dark'] & {
+    background: linear-gradient(180deg,
+      rgb(12, 13, 24) 0%,
+      rgb( 9, 10, 20) 100%
+    ) !important;
+    border-inline-start: 1px solid var(--theme-elevation-100);
+  }
+}
+
+// Logo / header area
+.nav__header {
+  padding: 20px 20px 18px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+// Scrollable list area
+.nav__scroll {
+  padding: 10px 0 16px;
+}
+
+// Section labels (e.g. "محتوا", "تنظیمات")
+.nav__label {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-450) !important;
+  padding: 18px 20px 6px !important;
+  opacity: 0.75;
+}
+
+// Individual nav links — bigger click target, larger text
+.nav__link {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px !important;
+  border-radius: 8px;
+  margin: 1px 8px !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s ease, color 0.15s ease;
+  color: var(--theme-elevation-700) !important;
+
+  &:hover {
+    background: var(--theme-elevation-50) !important;
+    color: var(--theme-elevation-900) !important;
+  }
+
+  // Active / current page
+  &.active,
+  &[aria-current='page'],
+  &--active {
+    background: var(--theme-success-100) !important;
+    color: var(--theme-success-500) !important;
+    font-weight: 600 !important;
+  }
+}
+
+// Active link indicator bar
+.nav__link-indicator {
+  display: none; // we use background instead
+}
+
+// Nav group toggle (collapsible section header)
+.nav-group {
+  margin-bottom: 2px;
+}
+
+.nav-group__toggle {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px !important;
+  border-radius: 8px;
+  margin: 1px 8px !important;
+  color: var(--theme-elevation-700) !important;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: var(--theme-elevation-50) !important;
+    color: var(--theme-elevation-900) !important;
+  }
+}
+
+.nav-group__indicator {
+  transition: transform 0.2s ease;
+}
+
+// Bottom controls (logout, settings)
+.nav__controls {
+  padding: 12px 8px;
+  border-top: 1px solid var(--theme-elevation-100);
+}
+
+.nav__log-out {
+  font-size: 13px !important;
+  padding: 8px 16px !important;
+  border-radius: 8px;
+  margin: 0 !important;
+  color: var(--theme-elevation-500) !important;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: var(--theme-elevation-50) !important;
+    color: var(--theme-error-500) !important;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// APP HEADER (top bar)
+// ─────────────────────────────────────────────────────────────────────────────
+.app-header {
+  border-bottom: 1px solid var(--theme-elevation-100) !important;
+
+  &__bg {
+    backdrop-filter: blur(16px) saturate(180%);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DOC CONTROLS (save / breadcrumb bar)
+// ─────────────────────────────────────────────────────────────────────────────
+.doc-controls {
+  border-bottom: 1px solid var(--theme-elevation-100) !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BUTTONS
+// ─────────────────────────────────────────────────────────────────────────────
+.btn {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease !important;
+  border-radius: 8px !important;
+
+  &:hover:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}
+
+.btn--style-primary {
+  html[data-theme='dark'] & {
+    box-shadow: 0 2px 12px rgba(79, 70, 229, 0.35);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FORM FIELDS — more breathing room
+// ─────────────────────────────────────────────────────────────────────────────
+.field-type {
+  margin-bottom: 20px !important;
+}
+
+.field-type input,
+.field-type textarea,
+.field-type select {
+  border-radius: 8px !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+
+  &:focus,
+  &:focus-within {
+    html[data-theme='dark'] & {
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25) !important;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COLLECTION LIST / TABLE
+// ─────────────────────────────────────────────────────────────────────────────
+.collection-list {
+  &__header {
+    padding: 28px 32px 16px !important;
+  }
+}
+
+// Table rows — more height and subtle hover
+.row {
+  transition: background 0.1s ease;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CARDS (dashboard)
+// ─────────────────────────────────────────────────────────────────────────────
+.card {
+  border-radius: 12px !important;
+  transition: box-shadow 0.2s ease, transform 0.15s ease !important;
+
+  &:hover {
+    html[data-theme='dark'] & {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PILLS / BADGES
+// ─────────────────────────────────────────────────────────────────────────────
+.pill {
+  border-radius: 20px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TOASTS / BANNERS
+// ─────────────────────────────────────────────────────────────────────────────
+.banner {
+  border-radius: 8px !important;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SCROLLBAR — subtle and minimal in dark mode
+// ─────────────────────────────────────────────────────────────────────────────
+html[data-theme='dark'] {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--theme-elevation-200);
+    border-radius: 3px;
+
+    &:hover {
+      background: var(--theme-elevation-300);
+    }
+  }
 }

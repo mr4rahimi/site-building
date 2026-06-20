@@ -57,8 +57,15 @@ export default buildConfig({
 
   admin: {
     user: Users.slug,
+    theme: 'dark',
     meta: {
       titleSuffix: '— پنل مدیریت',
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/admin/AdminLogo',
+        Icon: '@/components/admin/AdminIcon',
+      },
     },
   },
 
