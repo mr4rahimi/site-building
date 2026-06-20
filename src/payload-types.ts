@@ -224,7 +224,7 @@ export interface Page {
   /**
    * بدون / اول — مثال: about یا services
    */
-  slug: string;
+  slug?: string | null;
   pageType: 'home' | 'about' | 'contact';
   layout?:
     | (

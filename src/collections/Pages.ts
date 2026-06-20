@@ -21,8 +21,9 @@ export const Pages: CollectionConfig = {
   hooks: {
     beforeValidate: [
       ({ req, data }) => {
-        // Normalize slug: strip leading slash, lowercase, replace spaces with hyphens
-        if (data?.slug) {
+        if (data?.pageType === 'home') {
+          data.slug = 'home'
+        } else if (data?.slug) {
           data.slug = (data.slug as string)
             .replace(/^\/+/, '')
             .toLowerCase()
@@ -51,11 +52,16 @@ export const Pages: CollectionConfig = {
       name: 'slug',
       label: 'آدرس (Slug)',
       type: 'text',
-      required: true,
       index: true,
+      validate: (val: any, { data }: any) => {
+        if (data?.pageType === 'home') return true
+        if (!val || !(val as string).trim()) return 'آدرس صفحه الزامی است'
+        return true
+      },
       admin: {
         position: 'sidebar',
         description: 'بدون / اول — مثال: about یا services',
+        condition: (data: any) => data?.pageType !== 'home',
         components: {
           Cell: '@/components/admin/SlugCell',
         },
